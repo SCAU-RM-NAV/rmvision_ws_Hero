@@ -1,0 +1,24 @@
+/armor_creater:
+  ros__parameters:
+    freq: 150.0
+
+    mode: 1   # 0 : SIN   1 : UNIFORM_VELOCITY
+
+    robot_radius: 0.3   # 机器人半径
+
+    # 角速度参数
+    vel_sin_range: 3.0
+
+    vel_sin_cycle: 3.0
+    vel_sin_offset: 0.0
+
+    # 位移参数
+    y_sin_range: 2.0
+    y_sin_cycle: 12.0
+
+    # 测量方差
+    pos_stddev: 0.05
+    yaw_stddev: 0.05
+
+    euler_stddev: 0.005
+    dis_stddev: 0.05

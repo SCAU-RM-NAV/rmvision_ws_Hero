@@ -1,0 +1,84 @@
+/camera_node:
+  ros__parameters:
+    camera_info_url: package://rm_vision_bringup/config/camera_info.yaml
+    exposure_time_red: 4200 #击打红色 moni 2500 3200  赛场4200
+    exposure_time_blue: 3500 #击打蓝色 moni 800  赛场3500
+    rgb_gain.b: 300
+    rgb_gain.g: 300
+    rgb_gain.r: 300
+    gain: 32.0
+    gamma: 100
+
+    
+/serial_driver:
+  ros__parameters:
+    timestamp_offset: 0.0   # 时间戳偏置 单位：s
+    device_name: /dev/robomaster
+    baud_rate: 921600
+    # 串口驱动弹道可视化参数，仅用于可视化，应该与下面重力下坠参数保持一致
+    current_v: 15.6  # 子弹射速
+    s_bias: 0.12    # 枪口前推的距离
+    z_bias: 0.0     # yaw轴电机到枪口水平面的垂直距离
+    pitch_bias: -0.015 # -0.015       # gimbal_link到枪口pitch轴偏置 单位：弧度  正方向：向上（抬头）
+    k: 0.0945
+
+
+/armor_detector:
+  ros__parameters:
+    debug: false
+
+    detect_color: 2     # 识别的颜色 0-RED 1-BLUE 2-AUTO
+    binary_thres_blue: 90   #moni 120 123
+    binary_thres_red: 103    #moni 93  113
+
+    light.min_ratio: 0.0001
+    light.max_ratio: 1.0
+    light.min_fill_ratio: 0.8
+    use_pca: false
+    use_ba: true # 使用BA优化算法求解装甲板的Yaw角 
+    armor.min_light_ratio: 0.8
+    classifier_threshold: 0.98
+    ignore_classes: ["0"] #["negative"]
+
+/armor_tracker:
+  ros__parameters:
+    target_frame: world
+    max_armor_distance: 30.0  # 自瞄距离阈值，大于该距离目标不进攻
+    shoot_yaw_tole: 0.6     #发枪时机限制，单位度
+
+    spin_ekf: # 反陀螺/整车状态估计卡尔曼参数
+      sigma2_q_xyz: 0.05 #0.05改
+      sigma2_q_yaw: 7.00
+      sigma2_q_r: 80.0
+
+      # r_xyz_factor: 2e-4 # 4e-40
+      r_py: 3e-5         # 球坐标系 pit与yaw观测方差
+      r_dis_factor: 7e-4   # 球坐标系距离观测方差系数，方差 = r_dis_factor * dis
+      r_yaw:  2e-3  # 5e-3
+
+    com_ekf:  # 普通跟踪器卡尔曼参数
+      sigma2_q_xyz: 0.05 #0.05
+
+      r_py: 1e-7          # 球坐标系 pit与yaw观测方差
+      r_dis_factor:  1e-5   # 球坐标系距离观测方差系数，方差 = r_dis_factor * dis
+
+    tracker:
+      max_match_distance: 1.2
+      max_match_yaw_diff: 0.7
+      yaw_filter_alpha: 0.95   # yaw低通滤波系数， 范围：0～1, 越靠近0,滤波越大对应延迟也增大
+      common_match_distance: 0.3 #普通跟踪器初始化距离
+
+      tracking_thres: 5
+      lost_time_thres: 0.7
+
+    # 重力下坠与预测参数，上面/serial_driver有可视化的参数，需要同步更改
+    trajectory:
+      bullet_type: 1   # 自身机器人类型 0-步兵 1-英雄
+      current_v: 15.8  # 子弹射速
+      bias_time: 105  # 通信+机械+其他延时  单位：ms 77ms改  打红105
+      bias_time_spin: 390  #390
+      bias_time_com: 130 # 通信+机械+其他延时  单位：ms
+      s_bias: 0.06     # 枪口前推的距离
+      z_bias: 0.00     # yaw轴电机到枪口水平面的垂直距离  正方向：向上
+      pitch_bias: -0.009 # -0.015       # gimbal_link到枪口pitch轴偏置 单位：弧度  正方向：向上（抬头）
+

@@ -7,8 +7,8 @@
 namespace rm_auto_aim
 {
 CommonTracker::CommonTracker(double max_match_distance)
-: tracked_id(std::string("")),
-  max_match_distance_(max_match_distance)
+: tracked_id(std::string("")),// 初始化 tracked_id 为空字符串
+  max_match_distance_(max_match_distance)// 初始化 max_match_distance_
 {
   // Set initial position
   target_state = Eigen::VectorXd::Zero(6);

@@ -352,7 +352,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
           }
         }
     } else {//英雄
-      if (abs(vyaw) > 6.0 || target_msg.id != "7") {
+      if (abs(vyaw) > 6.0 || target_msg.id == "7") {
         aim_center = 1;
       } else {
         aim_center = 0;
@@ -455,6 +455,30 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
       } else {
         idx = idx % 4;
       }
+
+    }
+
+    if (st.armor_num == ARMOR_NUM_OUTPOST)//击打前哨
+    {
+      //提前选择下一块击打的装甲板,choose_armor_time防止观测带来误判
+      if (
+        vyaw > 2.0 &&
+        real_selective_hitting_yaw > shoot_yaw)  //设定一个值为了保证测距抖动带来的影响
+      {
+        choose_armor_time++;
+        if (choose_armor_time > 15) {
+          idx += 2;
+          choose_armor_time = 0;
+        }
+                  // std::cout<<"11111111111"<<std::endl;
+      } else if (vyaw < -2.0 && real_selective_hitting_yaw < -shoot_yaw) {
+        choose_armor_time++;
+        if (choose_armor_time > 15) {
+          idx += 1;
+          choose_armor_time = 0;
+        }
+                  // std::cout<<"2222222222222222"<<std::endl;
+      }
     }
 
     float choose_idx_selective_hitting_yaw =
@@ -483,7 +507,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
 
     // double acc_v = sqrt(target_msg.armor_acceleration.x * target_msg.armor_acceleration.x + target_msg.armor_acceleration.y * target_msg.armor_acceleration.y);
 
-    if (aim_center || aim_center_last_time > 0) {
+    if (aim_center || aim_center_last_time > 0 ) {
          //锁的中心正常情况下判断是否该发射
          fire_flag = 0;
         for (int  i = 0; i < 4; i++)
@@ -604,7 +628,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
         temp_pitch =
         pitchTrajectoryCompensation(sqrt((aim_x) * (aim_x) + (aim_y) * (aim_y)), aim_z, st.current_v) +
         st.pitch_bias;
-        std::cout<<"666"<<temp_pitch<<std::endl;
+        //std::cout<<"666"<<temp_pitch<<std::endl;
       }
 
   

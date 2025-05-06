@@ -1,0 +1,42 @@
+[35m[1mConsolidate compiler generated dependencies of target navi_cal[0m
+[35m[1mConsolidate compiler generated dependencies of target navi_cal_node[0m
+[ 50%] Built target navi_cal_node
+[100%] Built target navi_cal
+-- Install configuration: "Debug"
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/lib/navi_cal/navi_cal_node
+-- Set runtime path of "/home/auto/rmvision_ws/install/navi_cal/lib/navi_cal/navi_cal_node" to ""
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/include
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/include/navi_cal
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/include/navi_cal/navi_cal.hpp
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/environment/library_path.sh
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/environment/library_path.dsv
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/lib/libnavi_cal.so
+-- Set runtime path of "/home/auto/rmvision_ws/install/navi_cal/lib/libnavi_cal.so" to ""
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/include
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/include/navi_cal
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/include/navi_cal/navi_cal.hpp
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/src
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/src/navi_cal.cpp
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/config
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/config/navi_cal.yaml
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/launch
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/launch/navi_cal.py
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/ament_index/resource_index/package_run_dependencies/navi_cal
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/ament_index/resource_index/parent_prefix_path/navi_cal
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/environment/ament_prefix_path.sh
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/environment/ament_prefix_path.dsv
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/environment/path.sh
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/environment/path.dsv
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/local_setup.bash
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/local_setup.sh
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/local_setup.zsh
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/local_setup.dsv
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/package.dsv
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/ament_index/resource_index/packages/navi_cal
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/ament_index/resource_index/rclcpp_components/navi_cal
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/cmake/navi_calConfig.cmake
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/cmake/navi_calConfig-version.cmake
+-- Installing: /home/auto/rmvision_ws/install/navi_cal/share/navi_cal/package.xml

@@ -1,0 +1,34 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from auto_aim_interfaces/msg/GimbalCtrl.msg
+// generated code does not contain a copyright notice
+
+
+module auto_aim_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "test vision status")
+    struct GimbalCtrl {
+      double yaw;
+
+      double pit;
+
+      double shoot_yaw_tole;
+
+      double fire_flag;
+
+      double pos;
+
+      uint8 empty;
+
+      uint8 cnt;
+
+      uint8 ist_flag;
+
+      uint8 aim_flag;
+
+      int32 x;
+
+      uint8 base_flag;
+    };
+  };
+};

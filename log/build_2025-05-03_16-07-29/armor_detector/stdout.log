@@ -1,0 +1,60 @@
+[ 10%] Built target gtest_main
+[ 21%] Built target gtest
+[ 31%] Built target armor_detector_node
+[ 78%] Built target armor_detector
+[ 89%] Built target test_number_cls
+[100%] Built target test_node_startup
+-- Install configuration: ""
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/lib/armor_detector/armor_detector_node
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector/pnp_solver.hpp
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector/detector_node.hpp
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector/utils.hpp
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector/number_classifier.hpp
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector/graph_optimizer.hpp
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector/detector.hpp
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector/light_corner_corrector.hpp
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector/armor.hpp
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/include/armor_detector/ba_solver.hpp
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/environment/library_path.sh
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/environment/library_path.dsv
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/lib/libarmor_detector.so
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/cpu_test.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/best.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32_20240706.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32_20240326_2.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32__20240325.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/new_gray_cpu.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32_010_015.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32.pth
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/label.txt
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_gray_32x32.pth
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32_002_005.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/mlp.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32_20240728.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32_20240327.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32_20240325_2.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_threshold_32x32_20240731.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/model/lenet5_gray_32x32.onnx
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/ament_index/resource_index/package_run_dependencies/armor_detector
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/ament_index/resource_index/parent_prefix_path/armor_detector
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/environment/ament_prefix_path.sh
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/environment/path.sh
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/environment/path.dsv
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/local_setup.bash
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/local_setup.sh
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/local_setup.zsh
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/local_setup.dsv
+-- Installing: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/package.dsv
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/ament_index/resource_index/packages/armor_detector
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/ament_index/resource_index/rclcpp_components/armor_detector
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/cmake/ament_cmake_export_libraries-extras.cmake
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/cmake/armor_detectorConfig.cmake
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/cmake/armor_detectorConfig-version.cmake
+-- Up-to-date: /home/auto/rmvision_ws/install/armor_detector/share/armor_detector/package.xml

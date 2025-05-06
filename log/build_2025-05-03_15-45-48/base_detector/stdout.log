@@ -1,0 +1,40 @@
+[ 18%] Built target gtest
+[ 36%] Built target gtest_main
+[ 54%] Built target base_detector_node
+[ 63%] [32mBuilding CXX object CMakeFiles/base_detector.dir/src/base_node.cpp.o[0m
+[ 72%] [32m[1mLinking CXX shared library libbase_detector.so[0m
+[ 81%] Built target base_detector
+[ 90%] [32mBuilding CXX object CMakeFiles/test_node_startup.dir/test/test_node_startup.cpp.o[0m
+[100%] [32m[1mLinking CXX executable test_node_startup[0m
+[100%] Built target test_node_startup
+-- Install configuration: ""
+-- Installing: /home/auto/rmvision_ws/install/base_detector/lib/base_detector/base_detector_node
+-- Set runtime path of "/home/auto/rmvision_ws/install/base_detector/lib/base_detector/base_detector_node" to ""
+-- Installing: /home/auto/rmvision_ws/install/base_detector/include
+-- Installing: /home/auto/rmvision_ws/install/base_detector/include/base_detector
+-- Installing: /home/auto/rmvision_ws/install/base_detector/include/base_detector/base.hpp
+-- Installing: /home/auto/rmvision_ws/install/base_detector/include/base_detector/base_light.hpp
+-- Installing: /home/auto/rmvision_ws/install/base_detector/include/base_detector/base_node.hpp
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/environment/library_path.sh
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/environment/library_path.dsv
+-- Installing: /home/auto/rmvision_ws/install/base_detector/lib/libbase_detector.so
+-- Set runtime path of "/home/auto/rmvision_ws/install/base_detector/lib/libbase_detector.so" to ""
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/ament_index/resource_index/package_run_dependencies/base_detector
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/ament_index/resource_index/parent_prefix_path/base_detector
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/environment/ament_prefix_path.sh
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/environment/ament_prefix_path.dsv
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/environment/path.sh
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/environment/path.dsv
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/local_setup.bash
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/local_setup.sh
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/local_setup.zsh
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/local_setup.dsv
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/package.dsv
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/ament_index/resource_index/packages/base_detector
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/ament_index/resource_index/rclcpp_components/base_detector
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/cmake/base_detectorConfig.cmake
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/cmake/base_detectorConfig-version.cmake
+-- Installing: /home/auto/rmvision_ws/install/base_detector/share/base_detector/package.xml

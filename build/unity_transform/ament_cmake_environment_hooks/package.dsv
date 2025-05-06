@@ -1,0 +1,4 @@
+source;share/unity_transform/local_setup.bash
+source;share/unity_transform/local_setup.dsv
+source;share/unity_transform/local_setup.sh
+source;share/unity_transform/local_setup.zsh

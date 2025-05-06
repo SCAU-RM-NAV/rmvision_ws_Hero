@@ -1,0 +1,48 @@
+[0.026s] Invoking command in '/home/auto/rmvision_ws/build/hik_camera': CMAKE_PREFIX_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces:/home/auto/rmvision_ws/install/unity_transform:/home/auto/rmvision_ws/install/serial_driver:/home/auto/rmvision_ws/install/rm_vision_bringup:/home/auto/rmvision_ws/install/rm_gimbal_description:/home/auto/rmvision_ws/install/navi_cal:/home/auto/rmvision_ws/install/mindvision_camera:/home/auto/rmvision_ws/install/hik_camera:/home/auto/rmvision_ws/install/base_detector:/home/auto/rmvision_ws/install/armor_tracker:/home/auto/rmvision_ws/install/armor_detector:/home/auto/rmvision_ws/install/armor_creater:/opt/ros/humble LD_LIBRARY_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces/lib:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/home/auto/rmvision_ws/install/serial_driver/lib:/home/auto/rmvision_ws/install/navi_cal/lib:/home/auto/rmvision_ws/install/mindvision_camera/lib:/home/auto/rmvision_ws/install/hik_camera/lib:/home/auto/rmvision_ws/install/base_detector/lib:/home/auto/rmvision_ws/install/armor_tracker/lib:/home/auto/rmvision_ws/install/armor_detector/lib:/home/auto/rmvision_ws/install/armor_creater/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/usr/local/lib:/usr/local/lib /usr/local/bin/cmake /home/auto/rmvision_ws/src/hik_camera -DCMAKE_INSTALL_PREFIX=/home/auto/rmvision_ws/install/hik_camera
+[0.069s] -- The C compiler identification is GNU 11.4.0
+[0.126s] -- The CXX compiler identification is GNU 11.4.0
+[0.137s] -- Detecting C compiler ABI info
+[0.180s] -- Detecting C compiler ABI info - done
+[0.187s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.187s] -- Detecting C compile features
+[0.187s] -- Detecting C compile features - done
+[0.189s] -- Detecting CXX compiler ABI info
+[0.253s] -- Detecting CXX compiler ABI info - done
+[0.259s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.259s] -- Detecting CXX compile features
+[0.260s] -- Detecting CXX compile features - done
+[0.261s] -- Found ament_cmake_auto: 1.3.11 (/opt/ros/humble/share/ament_cmake_auto/cmake)
+[0.408s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.530s] -- Found OpenCV: /usr/local (found version "4.9.0") 
+[0.620s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.624s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.631s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.640s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.653s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.688s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.690s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.756s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[0.779s] -- Found FastRTPS: /opt/ros/humble/include  
+[0.819s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[0.826s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.883s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[0.885s] -- Found Threads: TRUE  
+[1.023s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.039s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.039s] -- Configured cppcheck include dirs: /home/auto/rmvision_ws/src/hik_camera/hikSDK/include
+[1.039s] -- Configured cppcheck exclude dirs and/or files: 
+[1.039s] -- Added test 'flake8' to check Python code syntax and style conventions
+[1.040s] -- Added test 'lint_cmake' to check CMake code style
+[1.041s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[1.041s] -- Added test 'xmllint' to check XML markup files
+[1.043s] -- Configuring done
+[1.055s] -- Generating done
+[1.060s] -- Build files have been written to: /home/auto/rmvision_ws/build/hik_camera
+[1.068s] Invoked command in '/home/auto/rmvision_ws/build/hik_camera' returned '0': CMAKE_PREFIX_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces:/home/auto/rmvision_ws/install/unity_transform:/home/auto/rmvision_ws/install/serial_driver:/home/auto/rmvision_ws/install/rm_vision_bringup:/home/auto/rmvision_ws/install/rm_gimbal_description:/home/auto/rmvision_ws/install/navi_cal:/home/auto/rmvision_ws/install/mindvision_camera:/home/auto/rmvision_ws/install/hik_camera:/home/auto/rmvision_ws/install/base_detector:/home/auto/rmvision_ws/install/armor_tracker:/home/auto/rmvision_ws/install/armor_detector:/home/auto/rmvision_ws/install/armor_creater:/opt/ros/humble LD_LIBRARY_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces/lib:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/home/auto/rmvision_ws/install/serial_driver/lib:/home/auto/rmvision_ws/install/navi_cal/lib:/home/auto/rmvision_ws/install/mindvision_camera/lib:/home/auto/rmvision_ws/install/hik_camera/lib:/home/auto/rmvision_ws/install/base_detector/lib:/home/auto/rmvision_ws/install/armor_tracker/lib:/home/auto/rmvision_ws/install/armor_detector/lib:/home/auto/rmvision_ws/install/armor_creater/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/usr/local/lib:/usr/local/lib /usr/local/bin/cmake /home/auto/rmvision_ws/src/hik_camera -DCMAKE_INSTALL_PREFIX=/home/auto/rmvision_ws/install/hik_camera
+[1.070s] Invoking command in '/home/auto/rmvision_ws/build/hik_camera': CMAKE_PREFIX_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces:/home/auto/rmvision_ws/install/unity_transform:/home/auto/rmvision_ws/install/serial_driver:/home/auto/rmvision_ws/install/rm_vision_bringup:/home/auto/rmvision_ws/install/rm_gimbal_description:/home/auto/rmvision_ws/install/navi_cal:/home/auto/rmvision_ws/install/mindvision_camera:/home/auto/rmvision_ws/install/hik_camera:/home/auto/rmvision_ws/install/base_detector:/home/auto/rmvision_ws/install/armor_tracker:/home/auto/rmvision_ws/install/armor_detector:/home/auto/rmvision_ws/install/armor_creater:/opt/ros/humble LD_LIBRARY_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces/lib:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/home/auto/rmvision_ws/install/serial_driver/lib:/home/auto/rmvision_ws/install/navi_cal/lib:/home/auto/rmvision_ws/install/mindvision_camera/lib:/home/auto/rmvision_ws/install/hik_camera/lib:/home/auto/rmvision_ws/install/base_detector/lib:/home/auto/rmvision_ws/install/armor_tracker/lib:/home/auto/rmvision_ws/install/armor_detector/lib:/home/auto/rmvision_ws/install/armor_creater/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/usr/local/lib:/usr/local/lib /usr/local/bin/cmake --build /home/auto/rmvision_ws/build/hik_camera -- -j20 -l20
+[1.100s] [ 25%] [32mBuilding CXX object CMakeFiles/hik_camera.dir/src/hik_camera_node.cpp.o[0m
+[1.100s] [ 50%] [32mBuilding CXX object CMakeFiles/hik_camera_node.dir/rclcpp_components/node_main_hik_camera_node.cpp.o[0m
+[8.766s] [ 75%] [32m[1mLinking CXX executable hik_camera_node[0m
+[9.095s] [ 75%] Built target hik_camera_node
+[15.640s] [100%] [32m[1mLinking CXX shared library libhik_camera.so[0m
+[16.001s] [100%] Built target hik_camera

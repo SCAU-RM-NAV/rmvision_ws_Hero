@@ -1,0 +1,16 @@
+[35m[1mConsolidate compiler generated dependencies of target gtest_main[0m
+[35m[1mConsolidate compiler generated dependencies of target gtest[0m
+[35m[1mConsolidate compiler generated dependencies of target base_detector_node[0m
+[35m[1mConsolidate compiler generated dependencies of target base_detector[0m
+[ 18%] Built target gtest_main
+[ 36%] Built target gtest
+[ 54%] Built target base_detector_node
+[ 63%] [32mBuilding CXX object CMakeFiles/base_detector.dir/src/base_node.cpp.o[0m
+In file included from [01m[K/home/auto/rmvision_ws/src/base_detector/src/base_node.cpp:23[m[K:
+[01m[K/home/auto/rmvision_ws/src/base_detector/include/base_detector/base_node.hpp:21:10:[m[K [01;31m[Kfatal error: [m[Ksolve_navi.hpp: 没有那个文件或目录
+   21 | #include [01;31m[K"solve_navi.hpp"[m[K
+      |          [01;31m[K^~~~~~~~~~~~~~~~[m[K
+compilation terminated.
+gmake[2]: *** [CMakeFiles/base_detector.dir/build.make:90：CMakeFiles/base_detector.dir/src/base_node.cpp.o] 错误 1
+gmake[1]: *** [CMakeFiles/Makefile2:159：CMakeFiles/base_detector.dir/all] 错误 2
+gmake: *** [Makefile:146：all] 错误 2

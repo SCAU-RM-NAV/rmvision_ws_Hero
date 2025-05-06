@@ -1,0 +1,22 @@
+[0.011s] Invoking command in '/home/auto/rmvision_ws/build/unity_transform': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake --build /home/auto/rmvision_ws/build/unity_transform -- -j20 -l20
+[0.039s] [100%] Built target unity_gimbal_transform_node
+[0.062s] Invoked command in '/home/auto/rmvision_ws/build/unity_transform' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake --build /home/auto/rmvision_ws/build/unity_transform -- -j20 -l20
+[0.063s] Invoking command in '/home/auto/rmvision_ws/build/unity_transform': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake --install /home/auto/rmvision_ws/build/unity_transform
+[0.066s] -- Install configuration: ""
+[0.067s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/lib/unity_transform/unity_gimbal_transform_node
+[0.067s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/ament_index/resource_index/package_run_dependencies/unity_transform
+[0.067s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/ament_index/resource_index/parent_prefix_path/unity_transform
+[0.067s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/environment/ament_prefix_path.sh
+[0.067s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/environment/ament_prefix_path.dsv
+[0.068s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/environment/path.sh
+[0.068s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/environment/path.dsv
+[0.068s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/local_setup.bash
+[0.068s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/local_setup.sh
+[0.068s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/local_setup.zsh
+[0.068s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/local_setup.dsv
+[0.068s] -- Installing: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/package.dsv
+[0.068s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/ament_index/resource_index/packages/unity_transform
+[0.068s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/cmake/unity_transformConfig.cmake
+[0.068s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/cmake/unity_transformConfig-version.cmake
+[0.069s] -- Up-to-date: /home/auto/rmvision_ws/install/unity_transform/share/unity_transform/package.xml
+[0.069s] Invoked command in '/home/auto/rmvision_ws/build/unity_transform' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake --install /home/auto/rmvision_ws/build/unity_transform

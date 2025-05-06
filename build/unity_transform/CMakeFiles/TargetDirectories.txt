@@ -1,0 +1,10 @@
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/uninstall.dir
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/unity_transform_uninstall.dir
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/unity_gimbal_transform_node.dir
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/test.dir
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/edit_cache.dir
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/rebuild_cache.dir
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/list_install_components.dir
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/install.dir
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/install/local.dir
+/home/auto/rmvision_ws/build/unity_transform/CMakeFiles/install/strip.dir

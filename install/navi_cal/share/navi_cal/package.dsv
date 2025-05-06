@@ -1,0 +1,11 @@
+source;share/navi_cal/hook/cmake_prefix_path.ps1
+source;share/navi_cal/hook/cmake_prefix_path.dsv
+source;share/navi_cal/hook/cmake_prefix_path.sh
+source;share/navi_cal/hook/ld_library_path_lib.ps1
+source;share/navi_cal/hook/ld_library_path_lib.dsv
+source;share/navi_cal/hook/ld_library_path_lib.sh
+source;share/navi_cal/local_setup.bash
+source;share/navi_cal/local_setup.dsv
+source;share/navi_cal/local_setup.ps1
+source;share/navi_cal/local_setup.sh
+source;share/navi_cal/local_setup.zsh

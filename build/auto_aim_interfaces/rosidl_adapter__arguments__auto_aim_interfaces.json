@@ -1,0 +1,25 @@
+{
+  "package_name": "auto_aim_interfaces",
+  "non_idl_tuples": [
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/Armor.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/Armors.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/Target.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/Base.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/Bases.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/DebugLight.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/DebugLights.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/DebugArmor.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/DebugArmors.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/DebugBase.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/DebugBases.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/TrackerInfo.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/GimbalCtrl.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/GimbalFdb.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/NaviFdb.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/KeyPoint2F.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/KeyPointAndFloat.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/Detection.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/Detections.msg",
+    "/home/auto/rmvision_ws/src/auto_aim_interfaces:msg/Fdb.msg"
+  ]
+}

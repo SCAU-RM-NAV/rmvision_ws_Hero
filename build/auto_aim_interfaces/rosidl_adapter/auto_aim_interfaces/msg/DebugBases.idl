@@ -1,0 +1,13 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from auto_aim_interfaces/msg/DebugBases.msg
+// generated code does not contain a copyright notice
+
+#include "auto_aim_interfaces/msg/DebugBase.idl"
+
+module auto_aim_interfaces {
+  module msg {
+    struct DebugBases {
+      sequence<auto_aim_interfaces::msg::DebugBase> data;
+    };
+  };
+};

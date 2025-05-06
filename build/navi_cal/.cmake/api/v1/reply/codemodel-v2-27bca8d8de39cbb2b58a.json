@@ -1,0 +1,88 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-b6e5387f229dca4cdd0a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "navi_cal",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "navi_cal::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-navi_cal-Debug-3befa06a6abd4feab9a7.json",
+					"name" : "navi_cal",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "navi_cal_node::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-navi_cal_node-Debug-156d7affde29bc6f585a.json",
+					"name" : "navi_cal_node",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "navi_cal_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-navi_cal_uninstall-Debug-59c8dc245ab7b08e8721.json",
+					"name" : "navi_cal_uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-Debug-e0ee8771353e91eab836.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/auto/rmvision_ws/build/navi_cal",
+		"source" : "/home/auto/rmvision_ws/src/navi_cal"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

@@ -1,0 +1,39 @@
+[35m[1mConsolidate compiler generated dependencies of target armor_creater_node[0m
+[35m[1mConsolidate compiler generated dependencies of target armor_creater[0m
+[ 40%] Built target armor_creater_node
+[100%] Built target armor_creater
+-- Install configuration: ""
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/lib/armor_creater/armor_creater_node
+-- Set runtime path of "/home/auto/rmvision_ws/install/armor_creater/lib/armor_creater/armor_creater_node" to ""
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/include
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/include/armor_creater
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/include/armor_creater/UdpSend.hpp
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/include/armor_creater/robot_simulation.hpp
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/include/armor_creater/creater_node.hpp
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/environment/library_path.sh
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/environment/library_path.dsv
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/lib/libarmor_creater.so
+-- Set runtime path of "/home/auto/rmvision_ws/install/armor_creater/lib/libarmor_creater.so" to ""
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/launch
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/launch/creater.launch.py
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/config
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/config/creater_params.yaml
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/ament_index/resource_index/package_run_dependencies/armor_creater
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/ament_index/resource_index/parent_prefix_path/armor_creater
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/environment/ament_prefix_path.sh
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/environment/ament_prefix_path.dsv
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/environment/path.sh
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/environment/path.dsv
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/local_setup.bash
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/local_setup.sh
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/local_setup.zsh
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/local_setup.dsv
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/package.dsv
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/ament_index/resource_index/packages/armor_creater
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/ament_index/resource_index/rclcpp_components/armor_creater
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/cmake/ament_cmake_export_include_directories-extras.cmake
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/cmake/ament_cmake_export_libraries-extras.cmake
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/cmake/armor_createrConfig.cmake
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/cmake/armor_createrConfig-version.cmake
+-- Installing: /home/auto/rmvision_ws/install/armor_creater/share/armor_creater/package.xml

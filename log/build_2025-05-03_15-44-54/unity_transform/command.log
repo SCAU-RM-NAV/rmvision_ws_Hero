@@ -1,0 +1,6 @@
+Invoking command in '/home/auto/rmvision_ws/build/unity_transform': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake /home/auto/rmvision_ws/src/unity_transform -DCMAKE_INSTALL_PREFIX=/home/auto/rmvision_ws/install/unity_transform
+Invoked command in '/home/auto/rmvision_ws/build/unity_transform' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake /home/auto/rmvision_ws/src/unity_transform -DCMAKE_INSTALL_PREFIX=/home/auto/rmvision_ws/install/unity_transform
+Invoking command in '/home/auto/rmvision_ws/build/unity_transform': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake --build /home/auto/rmvision_ws/build/unity_transform -- -j20 -l20
+Invoked command in '/home/auto/rmvision_ws/build/unity_transform' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake --build /home/auto/rmvision_ws/build/unity_transform -- -j20 -l20
+Invoking command in '/home/auto/rmvision_ws/build/unity_transform': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake --install /home/auto/rmvision_ws/build/unity_transform
+Invoked command in '/home/auto/rmvision_ws/build/unity_transform' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/local/bin/cmake --install /home/auto/rmvision_ws/build/unity_transform

@@ -1,0 +1,76 @@
+[0.029s] Invoking command in '/home/auto/rmvision_ws/build/armor_detector': CMAKE_PREFIX_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces:/home/auto/rmvision_ws/install/unity_transform:/home/auto/rmvision_ws/install/serial_driver:/home/auto/rmvision_ws/install/rm_vision_bringup:/home/auto/rmvision_ws/install/rm_gimbal_description:/home/auto/rmvision_ws/install/navi_cal:/home/auto/rmvision_ws/install/mindvision_camera:/home/auto/rmvision_ws/install/hik_camera:/home/auto/rmvision_ws/install/base_detector:/home/auto/rmvision_ws/install/armor_tracker:/home/auto/rmvision_ws/install/armor_detector:/home/auto/rmvision_ws/install/armor_creater:/opt/ros/humble LD_LIBRARY_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces/lib:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/home/auto/rmvision_ws/install/serial_driver/lib:/home/auto/rmvision_ws/install/navi_cal/lib:/home/auto/rmvision_ws/install/mindvision_camera/lib:/home/auto/rmvision_ws/install/hik_camera/lib:/home/auto/rmvision_ws/install/base_detector/lib:/home/auto/rmvision_ws/install/armor_tracker/lib:/home/auto/rmvision_ws/install/armor_detector/lib:/home/auto/rmvision_ws/install/armor_creater/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/usr/local/lib:/usr/local/lib /usr/local/bin/cmake /home/auto/rmvision_ws/src/armor_detector -DCMAKE_INSTALL_PREFIX=/home/auto/rmvision_ws/install/armor_detector
+[0.080s] -- The C compiler identification is GNU 11.4.0
+[0.126s] -- The CXX compiler identification is GNU 11.4.0
+[0.133s] -- Detecting C compiler ABI info
+[0.184s] -- Detecting C compiler ABI info - done
+[0.194s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.194s] -- Detecting C compile features
+[0.195s] -- Detecting C compile features - done
+[0.198s] -- Detecting CXX compiler ABI info
+[0.260s] -- Detecting CXX compiler ABI info - done
+[0.270s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.270s] -- Detecting CXX compile features
+[0.270s] -- Detecting CXX compile features - done
+[0.272s] -- Found ament_cmake_auto: 1.3.11 (/opt/ros/humble/share/ament_cmake_auto/cmake)
+[0.380s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.494s] -- Found OpenCV: /usr/local (found version "4.9.0") 
+[0.498s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[0.557s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[0.558s] -- Found Threads: TRUE  
+[0.566s] -- Found required Ceres dependency: Eigen version 3.4.0 in /usr/share/eigen3/cmake
+[0.570s] -- Found required Ceres dependency: glog
+[0.571s] -- Found required Ceres dependency: gflags
+[0.571s] -- Found Ceres version: 2.2.0 installed in: /usr/local with components: [EigenSparse, SparseLinearAlgebraLibrary, LAPACK, SchurSpecializations]
+[0.683s] -- Found rosidl_generator_c: 3.1.6 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.687s] -- Found rosidl_adapter: 3.1.6 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.693s] -- Found rosidl_generator_cpp: 3.1.6 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.703s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.715s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.750s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.752s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[0.819s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[0.852s] -- Found FastRTPS: /opt/ros/humble/include  
+[0.894s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.069s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[1.070s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[1.070s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[1.184s] -- Found ament_lint_auto: 0.12.12 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[1.199s] -- Found ament_cmake_gtest: 1.3.11 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+[1.201s] -- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+[1.211s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[1.211s] -- Configured cppcheck include dirs: /home/auto/rmvision_ws/src/armor_detector/include
+[1.211s] -- Configured cppcheck exclude dirs and/or files: 
+[1.212s] -- Added test 'lint_cmake' to check CMake code style
+[1.213s] -- Added test 'xmllint' to check XML markup files
+[1.215s] -- Added test 'clang_format' to check C / C++ code style
+[1.217s] -- Configuring done
+[1.254s] -- Generating done
+[1.268s] -- Build files have been written to: /home/auto/rmvision_ws/build/armor_detector
+[1.283s] Invoked command in '/home/auto/rmvision_ws/build/armor_detector' returned '0': CMAKE_PREFIX_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces:/home/auto/rmvision_ws/install/unity_transform:/home/auto/rmvision_ws/install/serial_driver:/home/auto/rmvision_ws/install/rm_vision_bringup:/home/auto/rmvision_ws/install/rm_gimbal_description:/home/auto/rmvision_ws/install/navi_cal:/home/auto/rmvision_ws/install/mindvision_camera:/home/auto/rmvision_ws/install/hik_camera:/home/auto/rmvision_ws/install/base_detector:/home/auto/rmvision_ws/install/armor_tracker:/home/auto/rmvision_ws/install/armor_detector:/home/auto/rmvision_ws/install/armor_creater:/opt/ros/humble LD_LIBRARY_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces/lib:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/home/auto/rmvision_ws/install/serial_driver/lib:/home/auto/rmvision_ws/install/navi_cal/lib:/home/auto/rmvision_ws/install/mindvision_camera/lib:/home/auto/rmvision_ws/install/hik_camera/lib:/home/auto/rmvision_ws/install/base_detector/lib:/home/auto/rmvision_ws/install/armor_tracker/lib:/home/auto/rmvision_ws/install/armor_detector/lib:/home/auto/rmvision_ws/install/armor_creater/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/usr/local/lib:/usr/local/lib /usr/local/bin/cmake /home/auto/rmvision_ws/src/armor_detector -DCMAKE_INSTALL_PREFIX=/home/auto/rmvision_ws/install/armor_detector
+[1.286s] Invoking command in '/home/auto/rmvision_ws/build/armor_detector': CMAKE_PREFIX_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces:/home/auto/rmvision_ws/install/unity_transform:/home/auto/rmvision_ws/install/serial_driver:/home/auto/rmvision_ws/install/rm_vision_bringup:/home/auto/rmvision_ws/install/rm_gimbal_description:/home/auto/rmvision_ws/install/navi_cal:/home/auto/rmvision_ws/install/mindvision_camera:/home/auto/rmvision_ws/install/hik_camera:/home/auto/rmvision_ws/install/base_detector:/home/auto/rmvision_ws/install/armor_tracker:/home/auto/rmvision_ws/install/armor_detector:/home/auto/rmvision_ws/install/armor_creater:/opt/ros/humble LD_LIBRARY_PATH=/home/auto/rmvision_ws/install/auto_aim_interfaces/lib:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/intel/openvino_2024.2.0/runtime/3rdparty/tbb/lib:/opt/intel/openvino_2024.2.0/runtime/lib/intel64:/home/auto/rmvision_ws/install/serial_driver/lib:/home/auto/rmvision_ws/install/navi_cal/lib:/home/auto/rmvision_ws/install/mindvision_camera/lib:/home/auto/rmvision_ws/install/hik_camera/lib:/home/auto/rmvision_ws/install/base_detector/lib:/home/auto/rmvision_ws/install/armor_tracker/lib:/home/auto/rmvision_ws/install/armor_detector/lib:/home/auto/rmvision_ws/install/armor_creater/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/opt/MVS/lib/64:/opt/MVS/lib/32:/usr/local/lib:/usr/local/lib /usr/local/bin/cmake --build /home/auto/rmvision_ws/build/armor_detector -- -j20 -l20
+[1.325s] [  5%] [32mBuilding CXX object CMakeFiles/armor_detector_node.dir/rclcpp_components/node_main_armor_detector_node.cpp.o[0m
+[1.325s] [ 21%] [32mBuilding CXX object CMakeFiles/armor_detector.dir/src/detector.cpp.o[0m
+[1.326s] [ 21%] [32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o[0m
+[1.326s] [ 21%] [32mBuilding CXX object CMakeFiles/armor_detector.dir/src/ba_solver.cpp.o[0m
+[1.326s] [ 26%] [32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o[0m
+[1.328s] [ 31%] [32mBuilding CXX object CMakeFiles/armor_detector.dir/src/detector_node.cpp.o[0m
+[1.345s] [ 36%] [32mBuilding CXX object CMakeFiles/armor_detector.dir/src/graph_optimizer.cpp.o[0m
+[1.345s] [ 42%] [32mBuilding CXX object CMakeFiles/armor_detector.dir/src/light_corner_corrector.cpp.o[0m
+[1.345s] [ 57%] [32mBuilding CXX object CMakeFiles/armor_detector.dir/src/utils.cpp.o[0m
+[1.345s] [ 47%] [32mBuilding CXX object CMakeFiles/armor_detector.dir/src/number_classifier.cpp.o[0m
+[1.345s] [ 52%] [32mBuilding CXX object CMakeFiles/armor_detector.dir/src/pnp_solver.cpp.o[0m
+[3.589s] [ 63%] [32m[1mLinking CXX static library libgtest_main.a[0m
+[3.646s] [ 63%] Built target gtest_main
+[8.873s] [ 68%] [32m[1mLinking CXX static library libgtest.a[0m
+[9.003s] [ 68%] Built target gtest
+[9.832s] [ 73%] [32m[1mLinking CXX executable armor_detector_node[0m
+[10.020s] [ 73%] Built target armor_detector_node
+[25.673s] [ 78%] [32m[1mLinking CXX shared library libarmor_detector.so[0m
+[27.344s] [ 78%] Built target armor_detector
+[27.353s] [ 84%] [32mBuilding CXX object CMakeFiles/test_node_startup.dir/test/test_node_startup.cpp.o[0m
+[27.353s] [ 89%] [32mBuilding CXX object CMakeFiles/test_number_cls.dir/test/test_number_cls.cpp.o[0m
+[29.657s] [ 94%] [32m[1mLinking CXX executable test_number_cls[0m
+[30.138s] /usr/bin/ld: warning: libopencv_core.so.4.5d, needed by /opt/ros/humble/lib/libcv_bridge.so, may conflict with libopencv_core.so.409
+[30.382s] [ 94%] Built target test_number_cls
+[32.669s] [100%] [32m[1mLinking CXX executable test_node_startup[0m
+[33.323s] [100%] Built target test_node_startup

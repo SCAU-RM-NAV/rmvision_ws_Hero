@@ -27,7 +27,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 
   "msg/GimbalCtrl.msg"
   "msg/GimbalFdb.msg"
-  "msg/NaviFdb.msg"
+ 
   
   #四点
   "msg/KeyPoint2F.msg"

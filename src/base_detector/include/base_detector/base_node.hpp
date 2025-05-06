@@ -19,7 +19,6 @@
 #include "base_detector/base_light.hpp"
 #include "base_detector/base.hpp"
 #include "auto_aim_interfaces/msg/base.hpp"
-#include "auto_aim_interfaces/msg/navi_fdb.hpp" 
 #include "auto_aim_interfaces/msg/gimbal_ctrl.hpp" 
 #include "auto_aim_interfaces/msg/target.hpp"
 

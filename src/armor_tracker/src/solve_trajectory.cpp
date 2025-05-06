@@ -8,8 +8,7 @@ SolveTrajectory::SolveTrajectory(rclcpp::Time time): Node("solve_trajectory_node
     gimbal_fdb_sub_ = this->create_subscription<auto_aim_interfaces::msg::GimbalFdb>(
   "gimbal_fdb", rclcpp::SensorDataQoS(),std::bind(&SolveTrajectory::gimbalCallback, this, std::placeholders::_1));
 
-  navi_fdb_sub_ = this->create_subscription<auto_aim_interfaces::msg::NaviFdb>(
-  "navi_fdb", rclcpp::SensorDataQoS(),std::bind(&SolveTrajectory::naviCallback, this, std::placeholders::_1));
+
   //初始化参数
   st.k = 0.000556;
   // st.k = 0.01903;                //25°C,1atm,小弹丸
@@ -53,11 +52,7 @@ SolveTrajectory::SolveTrajectory(rclcpp::Time time): Node("solve_trajectory_node
       aiming_mode = msg->aiming_mode;
   }
 
-  void SolveTrajectory::naviCallback(const auto_aim_interfaces::msg::NaviFdb::SharedPtr msg)
-  {
-      z = msg->z;
-      x = msg->x;
-  }
+
 
 /*
 @brief 根据最优决策得出被击打装甲板 自动解算弹道

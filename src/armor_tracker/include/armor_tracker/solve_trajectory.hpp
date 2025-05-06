@@ -15,7 +15,6 @@ typedef unsigned char uint8_t;
 #include <angles/angles.h>
 #include "auto_aim_interfaces/msg/target.hpp"
 #include "auto_aim_interfaces/msg/gimbal_fdb.hpp" 
-#include "auto_aim_interfaces/msg/navi_fdb.hpp"
 
 namespace rm_auto_aim
 {
@@ -146,9 +145,7 @@ public:
 
     
     void gimbalCallback(const auto_aim_interfaces::msg::GimbalFdb::SharedPtr msg);
-    void naviCallback(const auto_aim_interfaces::msg::NaviFdb::SharedPtr msg);
     rclcpp::Subscription<auto_aim_interfaces::msg::GimbalFdb>::SharedPtr gimbal_fdb_sub_;
-    rclcpp::Subscription<auto_aim_interfaces::msg::NaviFdb>::SharedPtr navi_fdb_sub_;
 
     int aiming_mode=0;
     float z;

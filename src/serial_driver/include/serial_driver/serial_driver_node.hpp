@@ -84,7 +84,6 @@ public:
    * 发送云台控制数据回调函数
   */
   void gimbalCtrlCallback(const auto_aim_interfaces::msg::GimbalCtrl::SharedPtr msg);
-  void naviCallback(const auto_aim_interfaces::msg::Fdb::SharedPtr msg);
 };
 
 }  // namespace rm_auto_aim

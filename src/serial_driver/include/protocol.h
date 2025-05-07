@@ -147,7 +147,7 @@ typedef union{
 }vision_tx_t;
 
 typedef union{
-  uint8_t buff[25];//源神从23改成25
+  uint8_t buff[25];
   struct{
     float yaw;
     float pit;
@@ -155,7 +155,7 @@ typedef union{
     float tof;
     float pos;
     uint16_t base_dx;//吊射用
-    //uint8_t empty;
+    uint8_t empty;
     uint8_t flag;
     uint8_t eof;
   }data;

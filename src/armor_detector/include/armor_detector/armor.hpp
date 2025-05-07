@@ -20,13 +20,13 @@ const int RED = 0;
 const int BLUE = 1;
 const int AUTO = 2;
 
-  // Unit: m
-  static constexpr float SMALL_ARMOR_WIDTH = 135 / 1000.0; // 130
-  static constexpr float SMALL_ARMOR_HEIGHT = 55 / 1000.0; // 52.96
-  static constexpr float LARGE_ARMOR_WIDTH = 225 / 1000.0;
-  static constexpr float LARGE_ARMOR_HEIGHT = 55 / 1000.0;
+// Unit: m
+static constexpr float SMALL_ARMOR_WIDTH = 135 / 1000.0; // 135
+static constexpr float SMALL_ARMOR_HEIGHT = 55 / 1000.0; // 55
+static constexpr float LARGE_ARMOR_WIDTH = 225 / 1000.0; // 225
+static constexpr float LARGE_ARMOR_HEIGHT = 55 / 1000.0; // 55
 
-  // 15 degree in rad
+// 15 degree in rad
 constexpr double FIFTTEN_DEGREE_RAD = 15 * CV_PI / 180;
 
 enum class ArmorType { SMALL, LARGE, INVALID };
@@ -43,22 +43,26 @@ struct CameraInternalK
   double fx, fy, cx, cy;
 };
 
+/** 
+ * @brief 灯条结构体
+ */
 struct Light : public cv::RotatedRect
 {
   Light() = default;
   explicit Light(cv::RotatedRect box) : cv::RotatedRect(box)
   {
     cv::Point2f p[4];
+
+    // 将矩阵四点按照纵坐标排序后求出灯条顶部和底部的点，以及长度和宽度（这与直接用RotatedRect的size得到的长宽有什么区别？）
     box.points(p);
     std::sort(p, p + 4, [](const cv::Point2f & a, const cv::Point2f & b) { return a.y < b.y; });
     top = (p[0] + p[1]) / 2;
     bottom = (p[2] + p[3]) / 2;
-
     length = cv::norm(top - bottom);
     width = cv::norm(p[0] - p[1]);
 
     tilt_angle = std::atan2(std::abs(top.x - bottom.x), std::abs(top.y - bottom.y));
-    // tilt_angle = tilt_angle / CV_PI * 180;
+    // tilt_angle = std::atan2(top.x - bottom.x, std::abs(top.y - bottom.y));
     if((top.x - bottom.x) > 0){
       tilt_angle = tilt_angle / CV_PI * 180;
     }else{
@@ -73,10 +77,15 @@ struct Light : public cv::RotatedRect
   float tilt_angle;
 };
 
+/** 
+ * @brief 装甲板结构体
+ */
 struct Armor
 {
   static constexpr const int N_LANDMARKS = 4;
   static constexpr const int N_LANDMARKS_2 = N_LANDMARKS * 2;
+
+  // 结构体构造函数
   Armor() = default;
   Armor(const Light & l1, const Light & l2)
   {
@@ -88,9 +97,8 @@ struct Armor
     center = (left_light.center + right_light.center) / 2;
   }
 
-    template <typename PointType>
-  static inline std::vector<PointType> buildObjectPoints(
-    const double & w, const double & h) noexcept
+  template <typename PointType>
+  static inline std::vector<PointType> buildObjectPoints(const double & w, const double & h) noexcept
   {
     if constexpr (N_LANDMARKS == 4) {
       return {PointType(0, w / 2, -h / 2), PointType(0, w / 2, h / 2), PointType(0, -w / 2, h / 2),
@@ -98,7 +106,7 @@ struct Armor
     } else {
       return {PointType(0, 0, -h / 2), PointType(0, w / 2, 0),  PointType(0,0 , -h / 2),PointType(0, -w / 2, 0),
               PointType(0, w / 2, -h / 2), PointType(0, w / 2, h /2), PointType(0, -w / 2, h / 2),PointType(0, -w / 2, -h / 2)};
-    }
+   }
   }
   std::vector<cv::Point2f> landmarks() const
   {
@@ -109,13 +117,13 @@ struct Armor
         // ((left_light.top.x + right_light.top.x) / 2, (left_light.top.y + right_light.top.y) / 2),
         // left_light.center,
         // ((left_light.bottom.x + right_light.bottom.x) / 2, (left_light.bottom.y + right_light.bottom.y) / 2),
-        //  right_light.center, left_light.bottom, left_light.top, right_light.top,right_light.bottom
+        // right_light.center, left_light.bottom, left_light.top, right_light.top,right_light.bottom};
          left_light.bottom, left_light.top, right_light.top, right_light.bottom
-         };
+      };
     }
   }
 
-    // Armor pose part
+  // Armor pose part
   cv::Mat rmat;
   cv::Mat tvec;
   double roll;
@@ -130,6 +138,7 @@ struct Armor
   cv::Mat number_img;
   std::string number;
   float confidence;
+  float armor_ratio;
   std::string classfication_result;
 };
 

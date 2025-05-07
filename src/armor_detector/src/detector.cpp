@@ -12,6 +12,9 @@
 #include <algorithm>
 #include <cmath>
 #include <vector>
+//文件和时间
+#include <filesystem>
+#include <chrono> 
 
 #include "armor_detector/detector.hpp"
 #include "auto_aim_interfaces/msg/debug_armor.hpp"
@@ -24,79 +27,186 @@ Detector::Detector(
 : binary_thres(bin_thres), detect_color(color), l(l), a(a)
 {
 }
+/**
+ * @brief 检测装甲板
+ * @param input 待检测图像
+ * @return 所有检测到的装甲板构成的容器
+ */
 
 std::vector<Armor> Detector::detect(const cv::Mat & input)
 {
+  // 预处理
   binary_img = preprocessImage(input);
+  // 寻找装甲板灯条
   lights_ = findLights(input, binary_img);
+  // 灯条匹配寻找装甲板
   armors_ = matchLights(lights_);
+
+  if (!armors_.empty()) {
+    // 提取数字二值化图像
+    classifier->extractNumbers(input, armors_);
+    // 识别数字，并对装甲板进一步过滤
+    classifier->classify(armors_);
+  }
+
+  // 装甲板灯条角点修正
+  for (auto &armor : armors_){
+    if (corner_corrector != nullptr ) {
+      corner_corrector->correctCorners(armor, gray_img_);
+      }
+    }
+
+  return armors_;
+}
+
+std::vector<Armor> Detector::pose_detect(std::vector<my_Detection> & result_ ,const cv::Mat & input)
+{
+
+  armors_ = pose_find_armors(result_);
+
 
   if (!armors_.empty()) {
     classifier->extractNumbers(input, armors_);
     classifier->classify(armors_);
   }
-  for (auto &armor : armors_){
-  if (corner_corrector != nullptr ) {
-  corner_corrector->correctCorners(armor, gray_img_);}
-}
+  //std::cout<<" pose_detect return armors 大小 ="<<armors_.size()<<std::endl;
   return armors_;
 }
 
+//openvino_pose 寻找装甲板
+std::vector<Armor> Detector::pose_find_armors(std::vector<my_Detection> & pose_result)
+{
+  std::vector<Armor> armors;
+for(size_t i=0;i<pose_result.size();i++)
+{
+  Armor armor;
+  if(static_cast<int>(pose_result[i].class_id) != detect_color)
+  {
+    continue;
+    std::cout<<" 没有符合颜色的装甲板"<<std::endl;
+  }
+  armor.left_light.color = armor.right_light.color = static_cast<int>(pose_result[i].class_id);
+
+
+  armor.left_light.top = pose_result[i].Key_Point.key_point[0];
+  armor.left_light.bottom = pose_result[i].Key_Point.key_point[1]; 
+
+
+  armor.left_light.width = abs(armor.left_light.top.x - armor.left_light.bottom.x);
+  armor.left_light.length = cv::norm(armor.left_light.top - armor.left_light.bottom);
+
+  armor.left_light.tilt_angle = std::atan2(
+    std::abs(armor.left_light.top.x - armor.left_light.bottom.x),
+    std::abs(armor.left_light.top.y - armor.left_light.bottom.y));
+
+  armor.left_light.tilt_angle = armor.left_light.tilt_angle / CV_PI * 180;
+
+  armor.right_light.top = pose_result[i].Key_Point.key_point[3];
+  armor.right_light.bottom = pose_result[i].Key_Point.key_point[2];
+  armor.right_light.width = abs(armor.right_light.top.x - armor.right_light.bottom.x);
+  armor.right_light.length = cv::norm(armor.right_light.top - armor.right_light.bottom);
+  armor.right_light.tilt_angle = std::atan2(
+    std::abs(armor.right_light.top.x - armor.right_light.bottom.x),
+    std::abs(armor.right_light.top.y - armor.right_light.bottom.y));
+  armor.right_light.tilt_angle = armor.right_light.tilt_angle / CV_PI * 180;
+
+  armor.left_light.center= (armor.left_light.top + armor.left_light.bottom) / 2;
+  armor.right_light.center= (armor.right_light.top + armor.right_light.bottom) / 2;
+
+
+
+  auto type = isArmor(armor.left_light, armor.right_light); //降好多帧 要改
+  if (type != ArmorType::INVALID) {
+    armor.type = type;
+    armors.emplace_back(armor);
+  }
+      //armor.type=ArmorType::SMALL;
+
+}
+  //std::cout<<" pose_find_armors return armors 大小 ="<<armors.size()<<std::endl;
+  return armors;
+}
+
+/**
+ * @brief 预处理图像
+ * @param rgb_img 待检测图像
+ * @return 预处理后的二值化图像
+ */
 cv::Mat Detector::preprocessImage(const cv::Mat & rgb_img)
 {
+  // 转为灰度图
   cv::cvtColor(rgb_img, gray_img_, cv::COLOR_RGB2GRAY);
+
+  // 二值化
   cv::Mat binary_img;
   cv::threshold(gray_img_, binary_img, binary_thres, 255, cv::THRESH_BINARY);
-
+ 
   return binary_img;
 }
 
+/**
+ * @brief 寻找灯条
+ * @param rgb_img 原图像
+ * @param binary_img 二值化图像
+ * @return 装甲板灯条构成的容器
+ */
 std::vector<Light> Detector::findLights(const cv::Mat & rbg_img, const cv::Mat & binary_img)
 {
   using std::vector;
+  // 在二值化图上寻找轮廓
   vector<vector<cv::Point>> contours;
   vector<cv::Vec4i> hierarchy;
   cv::findContours(binary_img, contours, hierarchy, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
 
+  // 初始化灯条容器
   vector<Light> lights;
+
+  // 清空调试显示的灯条数据
   this->debug_lights.data.clear();
 
+  // 遍历轮廓
   for (const auto & contour : contours) {
+    // 排除点数少于5的轮廓，因为不可用于拟合
     if (contour.size() < 5) continue;
 
+    // 分别对轮廓进行不可旋转矩阵和可以旋转矩形的最小外接矩形拟合
     auto b_rect = cv::boundingRect(contour);
     auto r_rect = cv::minAreaRect(contour);
+
+    // 按照b_rect对的尺寸创建单通道全0掩膜
     cv::Mat mask = cv::Mat::zeros(b_rect.size(), CV_8UC1);
+
+    // 计算原图轮廓点相对于b_rect的坐标（将其变换到b_rect中），装入mask_contour容器中
     std::vector<cv::Point> mask_contour;
     for (const auto & p : contour) {
       mask_contour.emplace_back(p - cv::Point(b_rect.x, b_rect.y));
     }
+
+    // 根据上面计算出的轮廓相对坐标，在mask中绘制轮廓构成的多边形（多边形内部也会填充，值为255）
     cv::fillPoly(mask, {mask_contour}, 255);
+
+    // 寻找mask中的轮廓构成点阵（这里不同于mask_contour，mask_contour只是轮廓外面一圈的点，points是包括轮廓内的点）
     std::vector<cv::Point> points;
     cv::findNonZero(mask, points);
-    // points / rotated rect area
+
+    // 用上面点阵的点数（对应轮廓面积）除以旋转矩阵面积，计算比例进行比较
     bool is_fill_rotated_rect =
       points.size() / (r_rect.size.width * r_rect.size.height) > l.min_fill_ratio;
-    auto light = Light(r_rect);
 
+    // 用旋转矩阵构造灯条对象
+    auto light = Light(r_rect);
+    lights.reserve(contours.size());
     if (isLight(light) && is_fill_rotated_rect) {
       auto rect = light.boundingRect();
-      if (  // Avoid assertion failed
-        0 <= rect.x && 0 <= rect.width && rect.x + rect.width <= rbg_img.cols && 0 <= rect.y &&
-        0 <= rect.height && rect.y + rect.height <= rbg_img.rows) {
+      if (0 <= rect.x && 0 <= rect.width && rect.x + rect.width <= rbg_img.cols && 0 <= rect.y &&
+          0 <= rect.height && rect.y + rect.height <= rbg_img.rows) {
+        // 颜色判定
         int sum_r = 0, sum_b = 0;
         auto roi = rbg_img(rect);
-        // Iterate through the ROI
-        for (int i = 0; i < roi.rows; i++) {
-          for (int j = 0; j < roi.cols; j++) {
-            if (cv::pointPolygonTest(contour, cv::Point2f(j + rect.x, i + rect.y), false) >= 0) {
-              // if point is inside contour
-              sum_r += roi.at<cv::Vec3b>(i, j)[0];
-              sum_b += roi.at<cv::Vec3b>(i, j)[2];
-            }
-          }
-        }
-        // Sum of red pixels > sum of blue pixels ?
+        // 使用 OpenCV 内置函数计算区域颜色均值
+        cv::Scalar mean_color = cv::mean(roi, mask); // mask 为轮廓区域掩膜
+        sum_r = mean_color[0];
+        sum_b = mean_color[2];
         light.color = sum_r > sum_b ? RED : BLUE;
         lights.emplace_back(light);
       }
@@ -106,12 +216,19 @@ std::vector<Light> Detector::findLights(const cv::Mat & rbg_img, const cv::Mat &
   return lights;
 }
 
+
+/**
+ * @brief 判断是否为符合条件的灯条
+ * @param light 待检测灯条
+ * @return 是否符合条件
+ */
 bool Detector::isLight(const Light & light)
 {
-  // The ratio of light (short side / long side)
+  // 宽与长比例约束
   float ratio = light.width / light.length;
   bool ratio_ok = l.min_ratio < ratio && ratio < l.max_ratio;
 
+  // 角度约束
   bool angle_ok = std::abs(light.tilt_angle) < l.max_angle;
 
   // std::cout<<"l.min_ratio:"<<l.min_ratio<<std::endl;
@@ -121,7 +238,7 @@ bool Detector::isLight(const Light & light)
 
   bool is_light = ratio_ok && angle_ok;
 
-  // Fill in debug information
+  // 将上述待判断灯条的数据和判定结果写入debug中
   auto_aim_interfaces::msg::DebugLight light_data;
   light_data.center_x = light.center.x;
   light_data.ratio = ratio;
@@ -132,24 +249,34 @@ bool Detector::isLight(const Light & light)
   return is_light;
 }
 
+/**
+ * @brief 灯条匹配寻找装甲板
+ * @param lights 待匹配装甲板灯条
+ * @return 有效装甲板构成的容器
+ */
 std::vector<Armor> Detector::matchLights(const std::vector<Light> & lights)
 {
   std::vector<Armor> armors;
+  // 清空调试显示的装甲板数据
   this->debug_armors.data.clear();
 
-  // Loop all the pairing of lights
+  // 遍历所有组合
   for (auto light_1 = lights.begin(); light_1 != lights.end(); light_1++) {
     for (auto light_2 = light_1 + 1; light_2 != lights.end(); light_2++) {
+      // 排除颜色不匹配的灯条
       if (light_1->color != detect_color || light_2->color != detect_color) continue;
 
-      if (containLight(*light_1, *light_2, lights)) {
-        continue;
-      }
+      // 排除灯条之间还有灯条的
+      if (containLight(*light_1, *light_2, lights)) continue;
 
+      // 尝试将灯条匹配成装甲板
       auto type = isArmor(*light_1, *light_2);
+
+      // 将有效装甲板构成装甲板对象放入容器
       if (type != ArmorType::INVALID) {
         auto armor = Armor(*light_1, *light_2);
         armor.type = type;
+        armor.armor_ratio = armor_radio_;
         armors.emplace_back(armor);
       }
     }
@@ -158,68 +285,89 @@ std::vector<Armor> Detector::matchLights(const std::vector<Light> & lights)
   return armors;
 }
 
-// Check if there is another light in the boundingRect formed by the 2 lights
+/**
+ * @brief 检测灯条直接是否还有灯条
+ * @param light_1,light_2 待检测灯条
+ * @param lights 所有待匹配灯条构成的容器
+ * @return 是否包含其它灯条
+ */
 bool Detector::containLight(
   const Light & light_1, const Light & light_2, const std::vector<Light> & lights)
 {
+  // 使用两个灯条上下两个点总共四个点构成矩形
   auto points = std::vector<cv::Point2f>{light_1.top, light_1.bottom, light_2.top, light_2.bottom};
   auto bounding_rect = cv::boundingRect(points);
 
+  // 遍历所有灯条
   for (const auto & test_light : lights) {
+    // 排除待检测灯条
     if (test_light.center == light_1.center || test_light.center == light_2.center) continue;
 
-    if (
-      bounding_rect.contains(test_light.top) || bounding_rect.contains(test_light.bottom) ||
+    // 使用三点检测是否包含
+    if (bounding_rect.contains(test_light.top) || bounding_rect.contains(test_light.bottom) ||
       bounding_rect.contains(test_light.center)) {
       return true;
     }
   }
-
   return false;
 }
 
+/**
+ * @brief 检测灯条是否能匹配成装甲板
+ * @param light_1,light_2 待匹配灯条
+ * @return 装甲板类型（大装甲板，小装甲板，无效装甲板）
+ */
 ArmorType Detector::isArmor(const Light & light_1, const Light & light_2)
 {
   // Ratio of the length of 2 lights (short side / long side)
+  // 灯条长度length比，短的比长的
   float light_length_ratio = light_1.length < light_2.length ? light_1.length / light_2.length
                                                              : light_2.length / light_1.length;
   bool light_ratio_ok = light_length_ratio > a.min_light_ratio;
 
   // Distance between the center of 2 lights (unit : light length)
+  // 灯条中点间距和灯条平均长度的比（这样的比例才不会受到距离影响）是否满足大/小装甲板应该有的比例区间
   float avg_light_length = (light_1.length + light_2.length) / 2;
   float armor_ratio = cv::norm(light_1.center - light_2.center) / avg_light_length;
-  bool armor_ratio_ok = (a.min_small_armor_ratio <= armor_ratio &&
-                             armor_ratio < a.max_small_armor_ratio) ||
-                            (a.min_large_armor_ratio <= armor_ratio &&
-                             armor_ratio < a.max_large_armor_ratio);
-                               // Angle of light center connection
+  bool armor_ratio_ok = (a.min_small_armor_ratio <= armor_ratio && armor_ratio < a.max_small_armor_ratio) ||
+                            (a.min_large_armor_ratio <= armor_ratio && armor_ratio < a.max_large_armor_ratio);
+ 
+  // 检测两灯条中点连线相对于水平线的角度是否满足要求
   cv::Point2f diff = light_1.center - light_2.center;
   float angle = std::abs(std::atan(diff.y / diff.x)) / CV_PI * 180;
   bool angle_ok = angle < a.max_angle;
 
-  bool light_angle_ok = std::abs(light_1.tilt_angle - light_2.tilt_angle) < 20.0;
+  // 两个灯条的倾斜角度差是否满足要求
+  bool light_angle_ok = std::abs(light_1.tilt_angle - light_2.tilt_angle) < 7.5;
 
-  bool is_armor = light_ratio_ok && armor_ratio_ok && angle_ok && light_angle_ok;
-
-  // Judge armor type
+  // bool is_armor = light_ratio_ok && armor_ratio_ok && angle_ok && light_angle_ok;
+  bool is_armor = armor_ratio_ok && angle_ok && light_angle_ok;
+  std::cout<<" light_ratio_ok="<<light_ratio_ok<<std::endl;
+  std::cout<<" armor_ratio_ok="<<armor_ratio_ok<<std::endl;
+  std::cout<<" angle_ok="<<angle_ok<<std::endl;
+  std::cout<<" light_angle_ok="<<light_angle_ok<<std::endl;
+  // 判断装甲板类型
   ArmorType type;
   if (is_armor) {
     type = armor_ratio > a.min_large_armor_ratio ? ArmorType::LARGE : ArmorType::SMALL;
-    armor_radio_=armor_ratio;//无特别含义 只是为了让detector_node能发出去
+    armor_radio_ = armor_ratio;
   } else {
     type = ArmorType::INVALID;
   }
 
-  // Fill in debug information
+  // 将上述装甲板信息和判断结果写入调试容器中
   auto_aim_interfaces::msg::DebugArmor armor_data;
   armor_data.type = ARMOR_TYPE_STR[static_cast<int>(type)];
   armor_data.center_x = (light_1.center.x + light_2.center.x) / 2;
   armor_data.light_ratio = light_length_ratio;
   armor_data.armor_ratio = armor_ratio;
+  //std::cout<<" armor_ratio="<<armor_ratio<<std::endl;
   armor_data.angle = angle;
+  // 把并非无效的装甲板排在前面
   if(type == ArmorType::INVALID)
   {
       this->debug_armors.data.emplace_back(armor_data);
+      std::cout<<" INVALID 装甲板没过type "<<std::endl;
   }
   else
   {
@@ -229,11 +377,16 @@ ArmorType Detector::isArmor(const Light & light_1, const Light & light_2)
   return type;
 }
 
+/**
+ * @brief 返回所有装甲板数字二值化图像
+ * @return 装甲板数字二值化图像
+ */
 cv::Mat Detector::getAllNumbersImage()
 {
   if (armors_.empty()) {
     return cv::Mat(cv::Size(20, 28), CV_8UC1);
-  } else {
+  } 
+  else {
     std::vector<cv::Mat> number_imgs;
     number_imgs.reserve(armors_.size());
     for (auto & armor : armors_) {
@@ -245,9 +398,13 @@ cv::Mat Detector::getAllNumbersImage()
   }
 }
 
+/**
+ * @brief 返回识别结果图像
+ * @param img 要绘制的图像
+ */
 void Detector::drawResults(cv::Mat & img)
 {
-  // Draw Lights
+  // 绘制所有灯条
   for (const auto & light : lights_) {
     cv::circle(img, light.top, 5, cv::Scalar(255, 255, 255), 1);
     cv::circle(img, light.bottom, 5, cv::Scalar(255, 255, 255), 1);
@@ -255,7 +412,7 @@ void Detector::drawResults(cv::Mat & img)
     cv::line(img, light.top, light.bottom, line_color, 1);
   }
 
-  // Draw armors
+  // 绘制所有装甲板
   for (const auto & armor : armors_) {
     cv::line(img, armor.left_light.top, armor.right_light.bottom, cv::Scalar(0, 255, 0), 2);
     cv::line(img, armor.left_light.bottom, armor.right_light.top, cv::Scalar(0, 255, 0), 2);
@@ -263,7 +420,7 @@ void Detector::drawResults(cv::Mat & img)
     
   }
 
-  // Show numbers and confidence
+  // 绘制所有装甲板的数字识别结果
   for (const auto & armor : armors_) {
     cv::putText(
       img, armor.classfication_result, armor.left_light.top, cv::FONT_HERSHEY_SIMPLEX, 0.8,

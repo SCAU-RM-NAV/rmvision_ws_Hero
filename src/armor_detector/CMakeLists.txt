@@ -4,7 +4,7 @@ project(armor_detector)
 ## Use C++14
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
+set(OPENVINO_ROOT "/opt/intel/openvino_2024")
 ## By adding -Wall and -Werror, the compiler does not ignore warnings anymore,
 ## enforcing cleaner code.
 add_definitions(-Wall -Werror)
@@ -44,12 +44,16 @@ list( APPEND CMAKE_MODULE_PATH /home/auto/g2o-master/cmake_modules )
 set(G2O_ROOT /usr/local/include/g2o) 
 find_package(G2O REQUIRED) 
 include_directories( 
-${G2O_INCLUDE_DIRS} ) 
+${G2O_INCLUDE_DIRS}
+${OPENVINO_ROOT}/runtime/include
+${OPENVINO_ROOT}/runtime/include/openvino
+ ) 
 
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 target_link_libraries(${PROJECT_NAME} ${GLOG_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${CERES_LIBRARIES})
 target_link_libraries(${PROJECT_NAME} ${G2O_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${OPENVINO_ROOT}/runtime/lib/intel64/libopenvino.so)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
 ${OpenCV_INCLUDE_DIRS}

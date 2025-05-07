@@ -19,9 +19,11 @@
 #include "auto_aim_interfaces/msg/debug_armors.hpp"
 #include "auto_aim_interfaces/msg/debug_lights.hpp"
 #include <rclcpp/rclcpp.hpp>
+#include "armor_detector/openvino_pose_inference.hpp"
 
 namespace rm_auto_aim
 {
+  
 class Detector
 {
 public:
@@ -52,6 +54,9 @@ public:
 
   std::vector<Armor> detect(const cv::Mat & input);
 
+  std::vector<Armor> pose_find_armors(std::vector<my_Detection> & pose_result);
+ std::vector<Armor> pose_detect(std::vector<my_Detection> & result_ ,const cv::Mat & input);
+
   cv::Mat preprocessImage(const cv::Mat & input);
   std::vector<Light> findLights(const cv::Mat & rbg_img, const cv::Mat & binary_img);
   std::vector<Armor> matchLights(const std::vector<Light> & lights);
@@ -64,16 +69,23 @@ public:
   int detect_color;
   LightParams l;
   ArmorParams a;
-
   float armor_radio_;
+
 
   std::unique_ptr<NumberClassifier> classifier;
   std::unique_ptr<LightCornerCorrector> corner_corrector;
-
+  std::unique_ptr<Inference> pose_inference;
+  std::unique_ptr<Inference> Apose_inference;
+  std::unique_ptr<Inference> Bpose_inference;
+  std::unique_ptr<Inference> Cpose_inference;
   // Debug msgs
   cv::Mat binary_img;
   auto_aim_interfaces::msg::DebugLights debug_lights;
   auto_aim_interfaces::msg::DebugArmors debug_armors;
+
+  //pose
+    std::vector<std::unique_ptr<Inference>> all_inferences;
+    int xiancheng=3;
 
 private:
   bool isLight(const Light & possible_light);
@@ -82,7 +94,7 @@ private:
   ArmorType isArmor(const Light & light_1, const Light & light_2);
 
   cv::Mat gray_img_;
-
+  
   std::vector<Light> lights_;
   std::vector<Armor> armors_;
 };

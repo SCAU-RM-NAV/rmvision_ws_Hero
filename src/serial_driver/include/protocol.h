@@ -155,7 +155,7 @@ typedef union{
     float tof;
     float pos;
     uint16_t base_dx;//吊射用
-    //uint8_t empty;
+    uint8_t empty;
     uint8_t flag;
     uint8_t eof;
   }data;

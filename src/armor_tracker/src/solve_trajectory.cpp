@@ -347,7 +347,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
           }
         }
     } else {//英雄
-      if (abs(vyaw) > 6.0 || target_msg.id == "7") {
+      if (abs(vyaw) > 6.0 || (target_msg.id == "7" && abs(vyaw) > 2.5)) {
         aim_center = 1;
       } else {
         aim_center = 0;

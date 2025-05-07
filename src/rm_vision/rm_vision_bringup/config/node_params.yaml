@@ -80,5 +80,5 @@
       bias_time_com: 130 # 通信+机械+其他延时  单位：ms
       s_bias: 0.06     # 枪口前推的距离
       z_bias: 0.00     # yaw轴电机到枪口水平面的垂直距离  正方向：向上
-      pitch_bias: -0.009 # -0.015       # gimbal_link到枪口pitch轴偏置 单位：弧度  正方向：向上（抬头）
+      pitch_bias: -0.0285 # -0.015       # gimbal_link到枪口pitch轴偏置 单位：弧度  正方向：向上（抬头）
 

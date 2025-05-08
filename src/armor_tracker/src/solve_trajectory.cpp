@@ -346,7 +346,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
             }
           }
         }
-    } else {//英雄
+    } else {//英雄或前哨
       if (abs(vyaw) > 6.0 || (target_msg.id == "7" && abs(vyaw) > 2.5)) {
         aim_center = 1;
       } else {
@@ -472,7 +472,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
           idx += 1;
           choose_armor_time = 0;
         }
-                  // std::cout<<"2222222222222222"<<std::endl;
+       // std::cout<<"2222222222222222"<<std::endl;
       }
     }
 
@@ -502,8 +502,8 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
 
     // double acc_v = sqrt(target_msg.armor_acceleration.x * target_msg.armor_acceleration.x + target_msg.armor_acceleration.y * target_msg.armor_acceleration.y);
 
-    if (aim_center || aim_center_last_time > 0 ) {
-         //锁的中心正常情况下判断是否该发射
+    if (aim_center || aim_center_last_time > 0 st.armor_num != ARMOR_NUM_OUTPOST) {
+         //锁的中心正常情况下判断是否该发射(非前哨)
          fire_flag = 0;
         for (int  i = 0; i < 4; i++)
         {
@@ -528,8 +528,6 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
         //   fire_flag = 0;
         // }
 
-
-
       aim_x = target_msg.position.x;
       aim_y = target_msg.position.y;
       aim_z = tar_position[idx].z;
@@ -540,16 +538,42 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
             std::cout<<"aim_y"<<aim_y<<std::endl;
                   std::cout<<"aim_z"<<aim_z<<std::endl;
 
-      
-
       // if (aim_distance < 2.5 && abs(target_msg.a_yaw) > 1.0 && abs(vyaw) > 14.0 && abs(acc_v) > 0.5)
       // {
       //   aim_x = last_aim_x;
       //   aim_y = last_aim_y;
       //   aim_z = last_aim_z;
       // }
-      
     }
+
+    if (aim_center || aim_center_last_time > 0 st.armor_num == ARMOR_NUM_OUTPOST) {
+      //锁的中心正常情况下判断是否该发射(前哨)
+      fire_flag = 0;
+     for (int  i = 0; i < 3; i++)
+     {
+       float choose_aim_center_yaw =(angles::shortest_angular_distance(yaw, tar_position[i].yaw)) * 180 /
+       3.14;
+                                         std::cout<<"chooseaim:"<<choose_aim_center_yaw<<std::endl;
+       float aim_target_yaw = choose_aim_center_yaw +
+                               vyaw * timeDelay;  //判断在在经历timeDelay后装甲板yaw角
+                               std::cout<<"aim_target_yaw:"<<aim_target_yaw<<std::endl;
+       if (abs(aim_target_yaw) < shoot_yaw ) //判断击发后能否打到装甲板
+       {
+         // fire_center_time++;
+         fire_flag = 1;
+       }
+     }
+      aim_x = target_msg.position.x;
+      aim_y = target_msg.position.y;
+      aim_z = tar_position[idx].z;
+      // aim_x = aim_center_x;
+      // aim_y = aim_center_y;
+      // aim_z = aim_center_z;
+      std::cout<<"aimx"<<aim_x<<std::endl;
+            std::cout<<"aim_y"<<aim_y<<std::endl;
+                  std::cout<<"aim_z"<<aim_z<<std::endl;
+   
+ }
 
     if (abs(linear_v) < 1.2 && abs(vyaw) < 9.0 && fire_flag == 1 && is_infantry &&aim_distance < 3.0)//慢速小陀螺一次可以发射两颗弹丸
     {

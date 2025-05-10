@@ -347,7 +347,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
           }
         }
     } else {//英雄
-      if (abs(vyaw) > 6.0 || (target_msg.id == "7" && abs(vyaw) > 2.5)) {
+      if (abs(vyaw) > 6.0 || (target_msg.id == "7" && abs(vyaw) > 0.5)) {
         aim_center = 1;
       } else {
         aim_center = 0;
@@ -357,7 +357,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
     }
     std::cout<<"aim_center:"<<aim_center<<std::endl;
     if (aim_center || aim_center_last_time > 10) {
-      shoot_yaw = 1.5;  //2.5改
+      shoot_yaw = 1;  //2.5改
       control_diff_mode = 3;
       if (aim_distance < 1.5)
       {

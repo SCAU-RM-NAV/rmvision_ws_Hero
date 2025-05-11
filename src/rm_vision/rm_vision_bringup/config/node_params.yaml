@@ -44,7 +44,7 @@
   ros__parameters:
     target_frame: world
     max_armor_distance: 30.0  # 自瞄距离阈值，大于该距离目标不进攻
-    shoot_yaw_tole: 0.6     #发枪时机限制，单位度
+    shoot_yaw_tole: 0.35     #发枪时机限制，单位度
 
     spin_ekf: # 反陀螺/整车状态估计卡尔曼参数
       sigma2_q_xyz: 0.05 #0.05改
@@ -63,8 +63,8 @@
       r_dis_factor:  1e-5   # 球坐标系距离观测方差系数，方差 = r_dis_factor * dis
 
     tracker:
-      max_match_distance: 1.2
-      max_match_yaw_diff: 0.7
+      max_match_distance: 0.8
+      max_match_yaw_diff: 0.5
       yaw_filter_alpha: 0.95   # yaw低通滤波系数， 范围：0～1, 越靠近0,滤波越大对应延迟也增大
       common_match_distance: 0.3 #普通跟踪器初始化距离
 
@@ -75,10 +75,10 @@
     trajectory:
       bullet_type: 1   # 自身机器人类型 0-步兵 1-英雄
       current_v: 15.8  # 子弹射速
-      bias_time: 85  # 通信+机械+其他延时  单位：ms 77ms改  打红105
+      bias_time: 92  # 通信+机械+其他延时  单位：ms 77ms改  打红105
       bias_time_spin: 390  #390
       bias_time_com: 130 # 通信+机械+其他延时  单位：ms
       s_bias: 0.06     # 枪口前推的距离
       z_bias: 0.00     # yaw轴电机到枪口水平面的垂直距离  正方向：向上
-      pitch_bias: 0.0185 # -0.015       # gimbal_link到枪口pitch轴偏置 单位：弧度  正方向：向上（抬头）
+      pitch_bias: 0.0379 # -0.015       # gimbal_link到枪口pitch轴偏置 单位：弧度  正方向：向上（抬头）
 

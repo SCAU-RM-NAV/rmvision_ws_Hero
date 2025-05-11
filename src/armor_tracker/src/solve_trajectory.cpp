@@ -357,7 +357,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
     }
     std::cout<<"aim_center:"<<aim_center<<std::endl;
     if (aim_center || aim_center_last_time > 10) {
-      shoot_yaw = 1;  //2.5改
+      shoot_yaw = 2.5;  //2.5改
       control_diff_mode = 3;
       if (aim_distance < 1.5)
       {
@@ -453,28 +453,6 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
 
     }
 
-    if (st.armor_num == ARMOR_NUM_OUTPOST)//击打前哨
-    {
-      //提前选择下一块击打的装甲板,choose_armor_time防止观测带来误判
-      if (
-        vyaw > 2.0 &&
-        real_selective_hitting_yaw > shoot_yaw)  //设定一个值为了保证测距抖动带来的影响
-      {
-        choose_armor_time++;
-        if (choose_armor_time > 15) {
-          idx += 2;
-          choose_armor_time = 0;
-        }
-                  // std::cout<<"11111111111"<<std::endl;
-      } else if (vyaw < -2.0 && real_selective_hitting_yaw < -shoot_yaw) {
-        choose_armor_time++;
-        if (choose_armor_time > 15) {
-          idx += 1;
-          choose_armor_time = 0;
-        }
-                  // std::cout<<"2222222222222222"<<std::endl;
-      }
-    }
 
     float choose_idx_selective_hitting_yaw =
       abs(angles::shortest_angular_distance(yaw, tar_position[idx].yaw)) * 180 /
@@ -505,7 +483,13 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
     if (aim_center || aim_center_last_time > 0 ) {
          //锁的中心正常情况下判断是否该发射
          fire_flag = 0;
-        for (int  i = 0; i < 4; i++)
+         int num = 4;
+         if (st.armor_num == ARMOR_NUM_OUTPOST)
+         {
+          num = 3;
+         }
+         
+        for (int  i = 0; i < num; i++)
         {
           float choose_aim_center_yaw =(angles::shortest_angular_distance(yaw, tar_position[i].yaw)) * 180 /
           3.14;

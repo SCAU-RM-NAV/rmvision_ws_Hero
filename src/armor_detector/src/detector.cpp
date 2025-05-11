@@ -27,6 +27,94 @@ Detector::Detector(
 : binary_thres(bin_thres), detect_color(color), l(l), a(a)
 {
 }
+  void Detector::get_images_train(const std::vector<Armor> & armors_, const cv::Mat & input)
+{
+      // 将 RGB 图像转换为 BGR 图像
+    cv::Mat bgrImage;
+    cv::cvtColor(input, bgrImage, cv::COLOR_RGB2BGR);
+
+  if(armors_.size())
+  {
+  std::ostringstream path;
+path << "/home/auto/Desktop/train/";
+  // 获取当前时间
+  std::time_t now = std::time(nullptr);
+  std::tm * ltm = std::localtime(&now);
+
+  // 格式化时间字符串，用作文件名
+  std::ostringstream fileName;
+  fileName << path.str() << "labels/" << "example_"
+           << std::put_time(ltm, "%Y-%m-%d_%H-%M-%S")  // 格式化为 YYYY-MM-DD_HH-MM-SS
+           << ".txt";
+  std::ostringstream fileName_;
+  fileName_ << path.str() << "images/" << "example_"
+            << std::put_time(ltm, "%Y-%m-%d_%H-%M-%S")  // 格式化为 YYYY-MM-DD_HH-MM-SS
+            << ".jpg";
+  
+  std::cout << "File path for labels: " << fileName.str() << std::endl;
+std::cout << "File path for images: " << fileName_.str() << std::endl;
+
+  // 创建文件并写入内容
+  std::ofstream outFile(fileName.str());
+
+  // 检查文件是否成功打开
+  if (!outFile) {
+    std::cerr << "无法创建文件！" << std::endl;
+    return ;  // 返回错误代码
+  }
+  cv::imwrite(fileName_.str(), bgrImage);
+
+  // 保存图片和labels
+  for (auto & armor : armors_) {
+    // 写入内容
+    //outFile << "Hello, World!" << std::endl;
+
+    int class_index = armor.left_light.color;
+    double x = armor.center.x;
+    double y = armor.center.y;
+    double zuo;
+    double you;
+    double shang;
+    double xia;
+    if (armor.left_light.top.x > armor.left_light.bottom.x) {
+      zuo = armor.left_light.bottom.x;
+    } else {
+      zuo = armor.left_light.top.x;
+    }
+
+    //xia
+    if (armor.right_light.bottom.y > armor.left_light.bottom.y) {
+      xia = armor.right_light.bottom.y;
+    } else {
+      xia = armor.left_light.bottom.y;
+    }
+
+    //you
+    if (armor.right_light.top.x > armor.right_light.bottom.x) {
+      you = armor.right_light.top.x;
+    } else {
+      you = armor.right_light.bottom.x;
+    }
+
+    //shang
+    if (armor.right_light.top.y > armor.left_light.top.y) {
+      shang = armor.left_light.top.y;
+    } else {
+      shang = armor.right_light.top.y;
+    }
+
+    //double images_w=input.cols;
+    outFile << class_index << " " << x / (double)input.cols << " " << y / (double)input.rows
+              << " " << (you - zuo)/ (double)input.cols  << " " << (xia - shang)/ (double)input.rows << " "  //0在左上 逆时针
+              << armor.left_light.top.x/ (double)input.cols << " " << armor.left_light.top.y / (double)input.rows<< " " << "2" << " "
+              << armor.left_light.bottom.x / (double)input.cols<< " " << armor.left_light.bottom.y / (double)input.rows<< " " << "2"<< " " 
+              << armor.right_light.bottom.x / (double)input.cols<< " " << armor.right_light.bottom.y / (double)input.rows<< " " << "2"<< " " 
+              << armor.right_light.top.x/ (double)input.cols << " " << armor.right_light.top.y/ (double)input.rows << " " << "2"<< std::endl;
+  }
+  // 关闭文件
+  outFile.close();
+  }
+}
 /**
  * @brief 检测装甲板
  * @param input 待检测图像
@@ -55,6 +143,13 @@ std::vector<Armor> Detector::detect(const cv::Mat & input)
       corner_corrector->correctCorners(armor, gray_img_);
       }
     }
+
+    //拍数据及
+  huamianshu++;
+  if(huamianshu>100){
+  get_images_train(armors_,input);
+  huamianshu=0;
+  }
 
   return armors_;
 }
@@ -195,7 +290,7 @@ std::vector<Light> Detector::findLights(const cv::Mat & rbg_img, const cv::Mat &
 
     // 用旋转矩阵构造灯条对象
     auto light = Light(r_rect);
-    lights.reserve(contours.size());
+
     if (isLight(light) && is_fill_rotated_rect) {
       auto rect = light.boundingRect();
       if (0 <= rect.x && 0 <= rect.width && rect.x + rect.width <= rbg_img.cols && 0 <= rect.y &&
@@ -203,10 +298,14 @@ std::vector<Light> Detector::findLights(const cv::Mat & rbg_img, const cv::Mat &
         // 颜色判定
         int sum_r = 0, sum_b = 0;
         auto roi = rbg_img(rect);
-        // 使用 OpenCV 内置函数计算区域颜色均值
-        cv::Scalar mean_color = cv::mean(roi, mask); // mask 为轮廓区域掩膜
-        sum_r = mean_color[0];
-        sum_b = mean_color[2];
+        for (int i = 0; i < roi.rows; i++) {
+          for (int j = 0; j < roi.cols; j++) {
+            if (cv::pointPolygonTest(contour, cv::Point2f(j + rect.x, i + rect.y), false) >= 0) {
+              sum_r += roi.at<cv::Vec3b>(i, j)[0];
+              sum_b += roi.at<cv::Vec3b>(i, j)[2];
+            }
+          }
+        }
         light.color = sum_r > sum_b ? RED : BLUE;
         lights.emplace_back(light);
       }

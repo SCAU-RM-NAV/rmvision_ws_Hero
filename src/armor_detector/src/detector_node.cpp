@@ -86,6 +86,7 @@ ArmorDetectorNode::ArmorDetectorNode(const rclcpp::NodeOptions & options)
 
   test_pub_ = this->create_publisher<std_msgs::msg::Int8>("/detector/test", 10);
 
+  To_opencv = this->declare_parameter("To_opencv", true);
   // Debug Publishers
   debug_ = this->declare_parameter("debug", true);
   if (debug_) {
@@ -156,6 +157,12 @@ void ArmorDetectorNode::gimbalFdbCallback(const auto_aim_interfaces::msg::Gimbal
 
 void ArmorDetectorNode::pose_imageCallback(const sensor_msgs::msg::Image::ConstSharedPtr img_msg)
 {
+     To_opencv = get_parameter("To_opencv").as_bool();
+  if(To_opencv)
+  {
+  imageCallback(img_msg);
+  }
+  else{
 //std::cout<<detector_->train <<" !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ";
   // 寻找从相机坐标系到世界坐标系的旋转变换矩阵
   try {
@@ -178,6 +185,8 @@ void ArmorDetectorNode::pose_imageCallback(const sensor_msgs::msg::Image::ConstS
   updateDetectorParams();
   
   this->Pose_Inference(img_msg);
+  }
+
 
 }
 
@@ -718,7 +727,7 @@ void ArmorDetectorNode::Pose_Inference(const sensor_msgs::msg::Image::ConstShare
 std::vector<Armor> ArmorDetectorNode::detectArmors(const sensor_msgs::msg::Image::ConstSharedPtr& img_msg)
 {
   // 将ros图像数据转成opencv矩阵格式
-  auto img = cv_bridge::toCvShare(img_msg, "bgr8")->image;
+  auto img = cv_bridge::toCvShare(img_msg, "rgb8")->image;
   std::cout << "img" << "成功" << std::endl;
 
   // 更新与图像预处理识别有关参数

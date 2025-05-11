@@ -282,7 +282,7 @@ namespace rm_auto_aim
 			cv::minMaxLoc(classes_scores, nullptr, &score, nullptr, &class_id); // Find the class with the highest score
 
 			// Check if the detection meets the confidence threshold
-			if (score > 0.9)
+			if (score > 0.85)
 			{
 				//计算key点置信度
 				double temp_score=0.0;

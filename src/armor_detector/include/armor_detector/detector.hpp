@@ -60,7 +60,7 @@ public:
   cv::Mat preprocessImage(const cv::Mat & input);
   std::vector<Light> findLights(const cv::Mat & rbg_img, const cv::Mat & binary_img);
   std::vector<Armor> matchLights(const std::vector<Light> & lights);
-
+ void get_images_train(const std::vector<Armor> & armors_, const cv::Mat & input);
   // For debug usage
   cv::Mat getAllNumbersImage();
   void drawResults(cv::Mat & img);
@@ -94,7 +94,7 @@ private:
   ArmorType isArmor(const Light & light_1, const Light & light_2);
 
   cv::Mat gray_img_;
-  
+  int huamianshu=0;
   std::vector<Light> lights_;
   std::vector<Armor> armors_;
 };

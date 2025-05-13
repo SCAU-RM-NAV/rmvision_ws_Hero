@@ -639,7 +639,7 @@ std::unique_ptr<Detector> ArmorDetectorNode::initDetector()
   detector->classifier = std::make_unique<NumberClassifier>(model_path, label_path, threshold, capture, ignore_classes);
 
     //对pose(四点)模型部署
-  auto pose_model_path = pkg_path + "/model/20250505/best.xml"   ;
+  auto pose_model_path = pkg_path + "/model/20250512/best.xml"   ;
   const float pose_model_confidence_threshold = 0.65;
   const float pose_model_NMS_threshold = 0.5;
   std::string GPU = "GPU"; 

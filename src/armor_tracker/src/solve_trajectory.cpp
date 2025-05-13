@@ -194,7 +194,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
 
     //计算枪管到目标装甲板yaw最小的那个装甲板
     float yaw_diff_min = get_score(tar_position[0]);
-    for (i = 1; i < 3; i++) {
+    for (i = 0; i < 3; i++) {
       float temp_yaw_diff = get_score(tar_position[i]);
       if (temp_yaw_diff < yaw_diff_min) {
         yaw_diff_min = temp_yaw_diff;
@@ -357,7 +357,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
     }
     std::cout<<"aim_center:"<<aim_center<<std::endl;
     if (aim_center || aim_center_last_time > 10) {
-      shoot_yaw = 2.5;  //2.5改
+      shoot_yaw = 2.0;  //2.5改
       control_diff_mode = 3;
       if (aim_distance < 1.5)
       {
@@ -447,12 +447,33 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
       // std::cout << "choose armor success" << std::endl;
       if (st.armor_num == ARMOR_NUM_BALANCE) {//平衡步兵已经废用
         idx = idx % 2;  //
-      } else {
+      } else{
         idx = idx % 4;
       }
 
     }
-
+    // if (shoot_yaw < selective_hitting_yaw && st.armor_num == ARMOR_NUM_OUTPOST)//击打前哨
+    // {
+    //   //提前选择下一块击打的装甲板,choose_armor_time防止观测带来误判
+    //   if (
+    //     vyaw > 2.0 &&
+    //     real_selective_hitting_yaw > shoot_yaw)  //设定一个值为了保证测距抖动带来的影响
+    //   {
+    //     choose_armor_time++;
+    //     if (choose_armor_time > 15) {
+    //       idx += 2;
+    //       choose_armor_time = 0;
+    //     }
+    //               // std::cout<<"11111111111"<<std::endl;
+    //   } else if (vyaw < -2.0 && real_selective_hitting_yaw < -shoot_yaw) {
+    //     choose_armor_time++;
+    //     if (choose_armor_time > 15) {
+    //       idx += 1;
+    //       choose_armor_time = 0;
+    //     }
+    //               // std::cout<<"2222222222222222"<<std::endl;
+    //   }
+    // }
 
     float choose_idx_selective_hitting_yaw =
       abs(angles::shortest_angular_distance(yaw, tar_position[idx].yaw)) * 180 /
@@ -535,14 +556,6 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
       
     }
 
-    if (abs(linear_v) < 1.2 && abs(vyaw) < 9.0 && fire_flag == 1 && is_infantry &&aim_distance < 3.0)//慢速小陀螺一次可以发射两颗弹丸
-    {
-      fire_flag = 2;
-    }
-    if (fire_flag == 2 && abs(vyaw) < 5.0)
-    {
-      fire_flag = 3;
-    }
     
     last_aim_x = aim_x;
     last_aim_y = aim_y;

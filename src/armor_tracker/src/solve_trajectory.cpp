@@ -111,16 +111,18 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
   // 线性预测时间
   // 模式选择 当装甲板的角速度vyaw小于 2rad/s 时，使用平移tracker的数据计算
   float timeDelay;
-  if (abs(st.v_yaw) < 2) {
+  if (abs(st.v_yaw) < 2.0) {
     timeDelay = st.bias_time_com / 1000.0 + t + calculate_delay / 1000.0;
   }
   // 否则使用小陀螺tracker的数据计算
   else{
     timeDelay = st.bias_time / 1000.0 + t + calculate_delay / 1000.0;
+      std::cout<<"bias_time:"<<st.bias_time<<std::endl;
   }
+  std::cout<<"timeDelay:"<<timeDelay<<std::endl;
   // 异常预测时间处理
   timeDelay = (timeDelay < 1000 || !std::isnan(timeDelay)) ? timeDelay : 1000;
-  if (timeDelay == 1000){
+  if (timeDelay > 1000){
     RCLCPP_WARN_STREAM(rclcpp::get_logger("armor_tracker"), "预测时间超过了1s!");
   }
   RCLCPP_DEBUG_STREAM(rclcpp::get_logger("armor_tracker"), "fly time: " << t);
@@ -357,7 +359,7 @@ void SolveTrajectory::autoSolveTrajectory(const auto_aim_interfaces::msg::Target
     }
     std::cout<<"aim_center:"<<aim_center<<std::endl;
     if (aim_center || aim_center_last_time > 10) {
-      shoot_yaw = 2.0;  //2.5改
+      shoot_yaw = 19.0;  //2.5改
       control_diff_mode = 3;
       if (aim_distance < 1.5)
       {

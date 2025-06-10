@@ -517,7 +517,7 @@ void ArmorTrackerNode::armorsCallback(const auto_aim_interfaces::msg::Armors::Sh
         gimbal_ctrl_msg.fire_flag = 0;
       }
 
-
+         //gimbal_ctrl_msg.fire_flag = 0;
       if(!solve_trajectory_->is_spin){
         gimbal_ctrl_msg.shoot_yaw_tole = 2.0;
         // std::cout<<"---------------------------"<<gimbal_ctrl_msg.shoot_yaw_tole<<std::endl;
@@ -539,7 +539,8 @@ void ArmorTrackerNode::armorsCallback(const auto_aim_interfaces::msg::Armors::Sh
         }else{                                                  //普通低速小陀螺，严格发枪角度，追求命中率
           gimbal_ctrl_msg.shoot_yaw_tole = 1.0;
         }
-      gimbal_ctrl_msg.shoot_yaw_tole = 0.5; //比赛用0.5
+      gimbal_ctrl_msg.shoot_yaw_tole = 0.3; //比赛用0.5
+      // gimbal_ctrl_msg.shoot_yaw_tole = 0.0; //比赛用0.5
       }
       // std::cout<<"shoot_yaw_tole:-------"<<gimbal_ctrl_msg.shoot_yaw_tole<<std::endl;
       // }

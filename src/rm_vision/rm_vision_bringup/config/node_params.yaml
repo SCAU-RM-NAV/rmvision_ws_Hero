@@ -1,8 +1,8 @@
 /camera_node:
   ros__parameters:
     camera_info_url: package://rm_vision_bringup/config/camera_info.yaml
-    exposure_time_red: 4800 #击打红色 moni 2500 3200  赛场4200
-    exposure_time_blue: 5600 #击打蓝色 moni 800  赛场3500
+    exposure_time_red: 3000 #击打红色 moni 2500 3200  赛场4200
+    exposure_time_blue: 3200 #击打蓝色 moni 800  赛场3500
     rgb_gain.b: 300
     rgb_gain.g: 300
     rgb_gain.r: 300
@@ -28,7 +28,7 @@
     debug: false
 
     detect_color: 2     # 识别的颜色 0-RED 1-BLUE 2-AUTO
-    binary_thres_blue: 115   #moni 120 123
+    binary_thres_blue: 97   #moni 120 123
     binary_thres_red:  90   #moni 93  113
 
     light.min_ratio: 0.0001
@@ -64,7 +64,7 @@
 
     tracker:
       max_match_distance: 0.8
-      max_match_yaw_diff: 0.5
+      max_match_yaw_diff: 0.7
       yaw_filter_alpha: 0.95   # yaw低通滤波系数， 范围：0～1, 越靠近0,滤波越大对应延迟也增大
       common_match_distance: 0.3 #普通跟踪器初始化距离
 
@@ -75,10 +75,10 @@
     trajectory:
       bullet_type: 1   # 自身机器人类型 0-步兵 1-英雄
       current_v: 15.8  # 子弹射速
-      bias_time: 82  # 通信+机械+其他延时  单位：ms 77ms改  打红105
+      bias_time: 84  # 通信+机械+其他延时  单位：ms 77ms改  打红105   828282
       # bias_time_spin: 390  #390
       bias_time_com: 130 # 通信+机械+其他延时  单位：ms
       s_bias: 0.06     # 枪口前推的距离
       z_bias: 0.00     # yaw轴电机到枪口水平面的垂直距离  正方向：向上
-      pitch_bias: 0.0115 # -0.015       # gimbal_link到枪口pitch轴偏置 单位：弧度  正方向：向上（抬头）
+      pitch_bias: 0.0133 # -0.015       # gimbal_link到枪口pitch轴偏置 单位：弧度  正方向：向上（抬头）
 

@@ -1,6 +1,17 @@
-/camera_node:
+/camera_node_A:
   ros__parameters:
-    camera_info_url: package://rm_vision_bringup/config/camera_info.yaml
+    camera_info_url: package://rm_vision_bringup/config/camera_info_A.yaml
+    exposure_time_red: 3000 #击打红色 moni 2500 3200  赛场4200
+    exposure_time_blue: 3200 #击打蓝色 moni 800  赛场3500
+    rgb_gain.b: 300
+    rgb_gain.g: 300
+    rgb_gain.r: 300
+    gain: 32.0
+    gamma: 100
+
+/camera_node_B:
+  ros__parameters:
+    camera_info_url: package://rm_vision_bringup/config/camera_info_B.yaml
     exposure_time_red: 3000 #击打红色 moni 2500 3200  赛场4200
     exposure_time_blue: 3200 #击打蓝色 moni 800  赛场3500
     rgb_gain.b: 300

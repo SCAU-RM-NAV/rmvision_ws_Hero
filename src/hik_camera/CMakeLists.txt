@@ -18,7 +18,8 @@ find_package(OpenCV REQUIRED)
 ament_auto_find_build_dependencies()
 
 ament_auto_add_library(${PROJECT_NAME} SHARED
-  src/hik_camera_node.cpp
+  src/hik_camera_node_A.cpp
+  src/hik_camera_node_B.cpp
 )
 
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
@@ -49,10 +50,13 @@ target_link_libraries(${PROJECT_NAME}
   MvUsb3vTL
 )
 
-
 rclcpp_components_register_node(${PROJECT_NAME}
-  PLUGIN hik_camera::HikCameraNode
-  EXECUTABLE ${PROJECT_NAME}_node
+  PLUGIN hik_camera::HikCameraNodeA
+  EXECUTABLE ${PROJECT_NAME}_nodeA
+)
+rclcpp_components_register_node(${PROJECT_NAME}
+  PLUGIN hik_camera::HikCameraNodeB
+  EXECUTABLE ${PROJECT_NAME}_nodeB
 )
 
 

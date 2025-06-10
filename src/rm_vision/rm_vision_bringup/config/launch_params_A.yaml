@@ -1,4 +1,4 @@
-camera: hik
+camera: hik_a
 
 odom2camera:
   xyz: "\"0.08 0.065  0.045\""

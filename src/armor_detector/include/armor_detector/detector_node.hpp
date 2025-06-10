@@ -69,7 +69,7 @@ private:
   rclcpp::Publisher<auto_aim_interfaces::msg::Armors>::SharedPtr armors_pub_;
   rclcpp::Publisher<auto_aim_interfaces::msg::Detections>::SharedPtr detections_pub_;
   rclcpp::Publisher<std_msgs::msg::Int8>::SharedPtr test_pub_;
-    rclcpp::Subscription<auto_aim_interfaces::msg::Detections>::SharedPtr detections_sub_;
+  rclcpp::Subscription<auto_aim_interfaces::msg::Detections>::SharedPtr detections_sub_;
 
   // Visualization marker publisher
   visualization_msgs::msg::Marker armor_marker_;
@@ -100,7 +100,9 @@ private:
 
 
   // Image subscrpition
-  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr img_sub_;
+  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr img_sub_a;
+  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr img_sub_b;
+
 
   // Target subscription
   // rclcpp::Subscription<rm_interfaces::msg::Target>::SharedPtr target_sub_;

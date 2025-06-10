@@ -20,12 +20,12 @@
 
 namespace hik_camera
 {
-class HikCameraNode : public rclcpp::Node
+class HikCameraNodeA : public rclcpp::Node
 {
 public:
-  explicit HikCameraNode(const rclcpp::NodeOptions & options) : Node("hik_camera", options)
+  explicit HikCameraNodeA(const rclcpp::NodeOptions & options) : Node("hik_camera_a", options)
   {
-    RCLCPP_INFO(this->get_logger(), "Starting HikCameraNode!");
+    RCLCPP_INFO(this->get_logger(), "Starting HikCameraNode_A!");
 
     MV_CC_DEVICE_INFO_LIST device_list;
     // enum device
@@ -56,7 +56,7 @@ public:
 
     bool use_sensor_data_qos = this->declare_parameter("use_sensor_data_qos", false);
     auto qos = use_sensor_data_qos ? rmw_qos_profile_sensor_data : rmw_qos_profile_default;
-    camera_pub = image_transport::create_camera_publisher(this, "image_raw", qos);\
+    camera_pub_A = image_transport::create_camera_publisher(this, "image_raw_a", qos);\
     camera_pub_green = image_transport::create_camera_publisher(this, "image_raw_green", qos);
 
     declareParameters();
@@ -64,30 +64,30 @@ public:
     MV_CC_StartGrabbing(camera_handle_);
 
     // Load camera info
-    camera_name_ = this->declare_parameter("camera_name", "narrow_stereo");
+    camera_name_ = this->declare_parameter("camera_name", "hik_camera_a");
     camera_info_manager_ =
       std::make_unique<camera_info_manager::CameraInfoManager>(this, camera_name_);
-    auto camera_info_url =
-      this->declare_parameter("camera_info_url", "package://hik_camera/config/camera_info.yaml");
-    if (camera_info_manager_->validateURL(camera_info_url)) {
-      camera_info_manager_->loadCameraInfo(camera_info_url);
+    auto camera_info_url_A =
+      this->declare_parameter("camera_info_url_A", "package://hik_camera/config/camera_info_A.yaml");
+    if (camera_info_manager_->validateURL(camera_info_url_A)) {
+      camera_info_manager_->loadCameraInfo(camera_info_url_A);
       camera_info_msg_ = camera_info_manager_->getCameraInfo();
     } else {
-      RCLCPP_WARN(this->get_logger(), "Invalid camera info URL: %s", camera_info_url.c_str());
+      RCLCPP_WARN(this->get_logger(), "Invalid camera info URL: %s", camera_info_url_A.c_str());
     }
 
     params_callback_handle_ = this->add_on_set_parameters_callback(
-      std::bind(&HikCameraNode::parametersCallback, this, std::placeholders::_1));
+      std::bind(&HikCameraNodeA::parametersCallback, this, std::placeholders::_1));
 
     cam_gimbal_fdb_sub_ = this->create_subscription<auto_aim_interfaces::msg::GimbalFdb>(
     "/gimbal_fdb", rclcpp::SensorDataQoS(),
-    std::bind(&HikCameraNode::camGimbalFdbCallback, this, std::placeholders::_1));
+    std::bind(&HikCameraNodeA::camGimbalFdbCallback, this, std::placeholders::_1));
 
 
     capture_thread_ = std::thread{[this]() -> void {
       MV_FRAME_OUT out_frame;
 
-      RCLCPP_INFO(this->get_logger(), "Publishing image!");
+      RCLCPP_INFO(this->get_logger(), "Publishing cam_A!");
 
       image_msg_.header.frame_id = "camera_optical_frame";
       image_msg_.encoding = "rgb8";
@@ -118,8 +118,8 @@ public:
           if(aiming_mode == 0)
           {
             //std::cout<<"image_msg_.height"<<image_msg_.height<<std::endl;
-            camera_pub.publish(image_msg_, camera_info_msg_);
-            //std::cout<<"image_raw在发布"<<std::endl;
+            camera_pub_A.publish(image_msg_, camera_info_msg_);
+            std::cout<<"image_raw_a在发布"<<std::endl;
           }
           if(aiming_mode == 1)
           {
@@ -143,7 +143,7 @@ public:
     }};
   }
 
-  ~HikCameraNode() override
+  ~HikCameraNodeA() override
   {
     if (capture_thread_.joinable()) {
       capture_thread_.join();
@@ -415,7 +415,7 @@ private:
 
   sensor_msgs::msg::Image image_msg_;
 
-  image_transport::CameraPublisher camera_pub;
+  image_transport::CameraPublisher camera_pub_A;
   image_transport::CameraPublisher camera_pub_green;
 
   int nRet = MV_OK;
@@ -444,4 +444,4 @@ private:
 
 #include "rclcpp_components/register_node_macro.hpp"
 
-RCLCPP_COMPONENTS_REGISTER_NODE(hik_camera::HikCameraNode)
+RCLCPP_COMPONENTS_REGISTER_NODE(hik_camera::HikCameraNodeA)

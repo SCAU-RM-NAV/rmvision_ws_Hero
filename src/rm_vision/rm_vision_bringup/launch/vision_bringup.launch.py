@@ -12,15 +12,23 @@ def generate_launch_description():
     from launch.actions import TimerAction, Shutdown
     from launch import LaunchDescription
 
-    def get_camera_node(package, plugin):
+    def get_camera_node_A(package, plugin):
         return ComposableNode(
             package=package,
             plugin=plugin,
-            name='camera_node',
+            name='hik_camera_a',
             parameters=[node_params],
             extra_arguments=[{'use_intra_process_comms': True}]
         )
 
+    def get_camera_node_B(package, plugin):
+        return ComposableNode(
+            package=package,
+            plugin=plugin,
+            name='hik_camera_b',
+            parameters=[node_params],
+            extra_arguments=[{'use_intra_process_comms': True}]
+        )
 
     def get_camera_detector_container(camera_node):
         return ComposableNodeContainer(
@@ -37,6 +45,13 @@ def generate_launch_description():
                     name='armor_detector',
                     parameters=[node_params],
                     extra_arguments=[{'use_intra_process_comms': True}]
+                ),
+                ComposableNode(
+                    package='base_detector',
+                    plugin='rm_auto_aim::BaseDetectorNode', 
+                    name='base_detector',
+                    parameters=[node_params],
+                    extra_arguments=[{'use_intra_process_comms': True}]
                 )
             ],
             output='both',
@@ -46,11 +61,14 @@ def generate_launch_description():
             on_exit=Shutdown(),
         )
 
-    hik_camera_node = get_camera_node('hik_camera', 'hik_camera::HikCameraNode')
+    hik_camera_node_A = get_camera_node_A('hik_camera', 'hik_camera::HikCameraNodeA')
+    hik_camera_node_B = get_camera_node_B('hik_camera', 'hik_camera::HikCameraNodeB')
     #mv_camera_node = get_camera_node('mindvision_camera', 'mindvision_camera::MVCameraNode')
 
-    if (launch_params['camera'] == 'hik'):
-        cam_detector = get_camera_detector_container(hik_camera_node)
+    if (launch_params['camera'] == 'hik_a'):
+        cam_detector_A = get_camera_detector_container(hik_camera_node_A)
+    if (launch_params['camera'] == 'hik_b'):
+        cam_detector_B = get_camera_detector_container(hik_camera_node_B)
 
     serial_driver_node = Node(
         package='serial_driver',
@@ -63,8 +81,8 @@ def generate_launch_description():
         parameters=[node_params],
         on_exit=Shutdown(),
         ros_arguments=['--ros-args', '--log-level',
-                       'serial_driver:='+launch_params['serial_log_level']],
-    )
+                       'serial_driver:='+launch_params_A['serial_log_level']],
+    )#launch_params_A和launch_parmas_B的串口日志等级一样，所以用A的
 
 
     delay_serial_node = TimerAction(
@@ -79,7 +97,8 @@ def generate_launch_description():
 
     return LaunchDescription([
         robot_state_publisher,
-        cam_detector,
+        cam_detector_A,
+        cam_detector_B,
        #delay_serial_node,
        delay_tracker_node,
     ])

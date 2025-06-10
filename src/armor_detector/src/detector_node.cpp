@@ -115,13 +115,14 @@ ArmorDetectorNode::ArmorDetectorNode(const rclcpp::NodeOptions & options)
       cam_info_sub_.reset();
     });
 
-/*   img_sub_ = this->create_subscription<sensor_msgs::msg::Image>(
-    "/image_raw", rclcpp::SensorDataQoS(),
-    std::bind(&ArmorDetectorNode::imageCallback, this, std::placeholders::_1)); */
-    img_sub_ = this->create_subscription<sensor_msgs::msg::Image>(
-    "/image_raw", rclcpp::SensorDataQoS(),
-    std::bind(&ArmorDetectorNode::pose_imageCallback, this, std::placeholders::_1));
 
+    img_sub_a = this->create_subscription<sensor_msgs::msg::Image>(
+    "/image_raw_a", rclcpp::SensorDataQoS(),
+    std::bind(&ArmorDetectorNode::pose_imageCallback, this, std::placeholders::_1));//短焦输入
+
+    img_sub_b = this->create_subscription<sensor_msgs::msg::Image>(
+    "/image_raw_b", rclcpp::SensorDataQoS(),
+    std::bind(&ArmorDetectorNode::pose_imageCallback, this, std::placeholders::_1));//长焦输入
 
   gimbal_fdb_sub_ = this->create_subscription<auto_aim_interfaces::msg::GimbalFdb>(
     "gimbal_fdb", rclcpp::SensorDataQoS(),
@@ -157,7 +158,7 @@ void ArmorDetectorNode::gimbalFdbCallback(const auto_aim_interfaces::msg::Gimbal
 
 void ArmorDetectorNode::pose_imageCallback(const sensor_msgs::msg::Image::ConstSharedPtr img_msg)
 {
-     To_opencv = get_parameter("To_opencv").as_bool();
+  To_opencv = get_parameter("To_opencv").as_bool();
   if(To_opencv)
   {
   imageCallback(img_msg);
@@ -192,7 +193,6 @@ void ArmorDetectorNode::pose_imageCallback(const sensor_msgs::msg::Image::ConstS
 
 void ArmorDetectorNode::imageCallback(const sensor_msgs::msg::Image::ConstSharedPtr img_msg)
 {
-
   std_msgs::msg::Int8 test_msg;
   test_msg.data = (int8_t)123;
   test_pub_->publish(test_msg);

@@ -5,19 +5,13 @@ from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import Command
 from launch_ros.actions import Node
 
-launch_params_A = yaml.safe_load(open(os.path.join(
-    get_package_share_directory('rm_vision_bringup'), 'config', 'launch_params_A.yaml')))
+launch_params = yaml.safe_load(open(os.path.join(
+    get_package_share_directory('rm_vision_bringup'), 'config', 'launch_params.yaml')))
 
 robot_description = Command(['xacro ', os.path.join(
     get_package_share_directory('rm_gimbal_description'), 'urdf', 'rm_gimbal.urdf.xacro'),
-    ' xyz:=', launch_params_A['odom2camera']['xyz'], ' rpy:=', launch_params_A['odom2camera']['rpy']])
+    ' xyz:=', launch_params['odom2camera']['xyz'], ' rpy:=', launch_params['odom2camera']['rpy']])
 
-launch_params_B = yaml.safe_load(open(os.path.join(
-    get_package_share_directory('rm_vision_bringup'), 'config', 'launch_params_B.yaml')))
-
-robot_description = Command(['xacro ', os.path.join(
-    get_package_share_directory('rm_gimbal_description'), 'urdf', 'rm_gimbal.urdf.xacro'),
-    ' xyz:=', launch_params_B['odom2camera']['xyz'], ' rpy:=', launch_params_B['odom2camera']['rpy']])
 
 robot_state_publisher = Node(
     package='robot_state_publisher',

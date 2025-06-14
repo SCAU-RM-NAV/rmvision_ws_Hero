@@ -143,6 +143,7 @@ void ArmorDetectorNode::gimbalFdbCallback(const auto_aim_interfaces::msg::Gimbal
 {
   auto detect_color = get_parameter("detect_color").as_int();
   int enemy_color = msg->camp == RED ? BLUE : RED;
+  aiming_mode = msg->aiming_mode;
   if (detect_color == AUTO && detector_->detect_color != enemy_color) 
   {  
     detector_->detect_color = enemy_color;
@@ -168,8 +169,16 @@ void ArmorDetectorNode::pose_imageCallback(const sensor_msgs::msg::Image::ConstS
   // 寻找从相机坐标系到世界坐标系的旋转变换矩阵
   try {
     rclcpp::Time target_time = img_msg->header.stamp;
-    auto odom_to_gimbal = tf2_buffer_->lookupTransform(
-      odom_frame_, "camera_optical_frame", target_time, rclcpp::Duration::from_seconds(0.01));
+    if(aiming_mode == 0)
+    {
+      auto odom_to_gimbal = tf2_buffer_->lookupTransform(
+      odom_frame_, "camera_optical_frame_A", target_time, rclcpp::Duration::from_seconds(0.01));
+    }
+    if(aiming_mode == 2)
+    {
+      auto odom_to_gimbal = tf2_buffer_->lookupTransform(
+      odom_frame_, "camera_optical_frame_B", target_time, rclcpp::Duration::from_seconds(0.01));
+    }
     auto msg_q = odom_to_gimbal.transform.rotation;
     tf2::Quaternion tf_q;
     tf2::fromMsg(msg_q, tf_q);
@@ -199,8 +208,16 @@ void ArmorDetectorNode::imageCallback(const sensor_msgs::msg::Image::ConstShared
   // 寻找从相机坐标系到世界坐标系的旋转变换矩阵
   try {
     rclcpp::Time target_time = img_msg->header.stamp;
-    auto odom_to_gimbal = tf2_buffer_->lookupTransform(
-      odom_frame_, "camera_optical_frame", target_time, rclcpp::Duration::from_seconds(0.01));
+    if(aiming_mode == 0)
+    {
+      auto odom_to_gimbal = tf2_buffer_->lookupTransform(
+      odom_frame_, "camera_optical_frame_A", target_time, rclcpp::Duration::from_seconds(0.01));
+    }
+    if(aiming_mode == 2)
+    {
+      auto odom_to_gimbal = tf2_buffer_->lookupTransform(
+      odom_frame_, "camera_optical_frame_B", target_time, rclcpp::Duration::from_seconds(0.01));
+    }
     auto msg_q = odom_to_gimbal.transform.rotation;
     tf2::Quaternion tf_q;
     tf2::fromMsg(msg_q, tf_q);

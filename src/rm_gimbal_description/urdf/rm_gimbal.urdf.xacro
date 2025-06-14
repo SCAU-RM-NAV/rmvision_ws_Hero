@@ -16,21 +16,38 @@
     <child link="gimbal_link" />
   </joint>
 
-  <link name="camera_link" />
+  <link name="camera_link_A" />
 
-  <joint name="camera_joint" type="fixed">
-    <origin xyz="$(arg xyz)" rpy="$(arg rpy)" />
+  <joint name="camera_joint_A" type="fixed">
+    <origin xyz_a="$(arg xyz_a)" rpy_a="$(arg rpy_a)" />
     <parent link="gimbal_link" />
-    <child link="camera_link" />
+    <child link="camera_link_A" />
     <axis xyz="0 0 0" />
   </joint>
 
-  <link name="camera_optical_frame" />
+  <link name="camera_link_B" />
 
-  <joint name="camera_optical_joint" type="fixed">
+  <joint name="camera_joint_B" type="fixed">
+    <origin xyz_b="$(arg xyz_b)" rpy_b="$(arg rpy_b)" />
+    <parent link="gimbal_link" />
+    <child link="camera_link_B" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="camera_optical_frame_A" />
+
+  <joint name="camera_optical_joint_A" type="fixed">
     <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
-    <parent link="camera_link" />
-    <child link="camera_optical_frame" />
+    <parent link="camera_link_A" />
+    <child link="camera_optical_frame_A" />
+  </joint>
+
+  <link name="camera_optical_frame_B" />
+
+  <joint name="camera_optical_joint_B" type="fixed">
+    <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
+    <parent link="camera_link_B" />
+    <child link="camera_optical_frame_B" />
   </joint>
 
 </robot>

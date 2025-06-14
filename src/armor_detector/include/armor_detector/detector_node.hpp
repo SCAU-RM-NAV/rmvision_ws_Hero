@@ -115,6 +115,7 @@ private:
   std::shared_ptr<tf2_ros::Buffer> tf2_buffer_;
   std::shared_ptr<tf2_ros::TransformListener> tf2_listener_;
   geometry_msgs::msg::TransformStamped odom_to_gimbal;
+  int aiming_mode;
 
 
   // GimbalFdb

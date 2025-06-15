@@ -315,47 +315,35 @@ private:
     if (msg != nullptr && rclcpp::ok()) 
     {      
       aiming_mode = msg->aiming_mode;
-      if(aiming_mode == 0)
-      {
-          int enemy_color = msg->camp == 0 ? 1 : 0;
-
-          if(enemy_color == 0)
-          {
-            int exp_time_red = get_parameter("exposure_time_red").as_int();
-
-            if(exp_time_red != exposure_time) 
-            {
-              this->set_parameters({rclcpp::Parameter("exposure_time", exp_time_red)});
-              exposure_time = exp_time_red;
-              RCLCPP_INFO(this->get_logger(), "set_parameters r: = %d", exp_time_red);
-            }
+      // 只有当模式变化时才处理
+      if (msg->aiming_mode != last_aiming_mode_) {
+      last_aiming_mode_ = msg->aiming_mode;
+    
+      // 根据模式决定是否启用相机
+        if (msg->aiming_mode == 0 || msg->aiming_mode == 1) {
+        startCamera();
+      
+          // 设置曝光时间
+          int new_exposure = 0;
+          if (msg->aiming_mode == 0) {
+            int enemy_color = msg->camp == 0 ? 1 : 0;
+            new_exposure = enemy_color == 0 ? get_parameter("exposure_time_red").as_int() 
+                                          : get_parameter("exposure_time_blue").as_int();
+          } else {
+            new_exposure = get_parameter("exposure_time_green").as_int();
           }
-          else
-          {
-            int exp_time_blue = get_parameter("exposure_time_blue").as_int();
-
-            if(exp_time_blue != exposure_time) 
-            {
-              this->set_parameters({rclcpp::Parameter("exposure_time", exp_time_blue)});
-              exposure_time = exp_time_blue;
-              RCLCPP_INFO(this->get_logger(), "set_parameters b: = %d", exp_time_blue);
-            }
-          }    
+          
+          if (new_exposure != exposure_time) {
+            this->set_parameters({rclcpp::Parameter("exposure_time", new_exposure)});
+            exposure_time = new_exposure;
+            RCLCPP_INFO(this->get_logger(), "Set exposure time to %d", new_exposure);
+          }
+          else {
+              stopCamera();
+          }
       }
-      
-      if(aiming_mode == 1)
-      {
-        int exp_time_green = get_parameter("exposure_time_green").as_int();
-        if(exp_time_green != exposure_time) 
-        {
-          this->set_parameters({rclcpp::Parameter("exposure_time", exp_time_green)});
-          exposure_time = exp_time_green;
-          RCLCPP_INFO(this->get_logger(), "set_parameters g: = %d", exp_time_green);
-        }
-      }
-      
-      
     }
+  }
     else RCLCPP_INFO(this->get_logger(), "CamGimbalFdb msg empty!!!");
   }
   

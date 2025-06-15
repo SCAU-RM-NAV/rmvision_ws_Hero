@@ -89,7 +89,7 @@ public:
 
       RCLCPP_INFO(this->get_logger(), "Publishing cam_A!");
 
-      image_msg_.header.frame_id = "camera_optical_A_frame";
+      image_msg_.header.frame_id = "camera_optical_frame_A";
       image_msg_.encoding = "rgb8";
 
     
@@ -166,12 +166,34 @@ private:
 //   // 其他关键参数重置...
 // }
 
+  void startCamera()
+  {
+    if (!is_camera_active_) {
+      MV_CC_StartGrabbing(camera_handle_);
+      is_camera_active_ = true;
+      RCLCPP_INFO(this->get_logger(), "Camera_A started");
+    }
+  }
+
+  void stopCamera()
+  {
+    if (is_camera_active_) {
+      MV_CC_StopGrabbing(camera_handle_);
+      is_camera_active_ = false;
+      RCLCPP_INFO(this->get_logger(), "Camera_A stopped");
+    }
+  }
+
+  bool is_camera_active_ = false;
+  int last_aiming_mode_ = -1; // 用于记录上次的模式
+
   void declareParameters()
   {
     rcl_interfaces::msg::ParameterDescriptor param_desc;
     
     this->declare_parameter("exposure_time_red", 3000, param_desc);
     this->declare_parameter("exposure_time_blue", 3000, param_desc);
+    this->declare_parameter("exposure_time_green", 3000, param_desc);
     //this->declare_parameter("detect_color", 2, param_desc);
 
 

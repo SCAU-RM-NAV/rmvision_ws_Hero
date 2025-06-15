@@ -89,7 +89,7 @@ public:
 
       RCLCPP_INFO(this->get_logger(), "Publishing cam_B!");
 
-      image_msg_.header.frame_id = "camera_optical_B_frame";
+      image_msg_.header.frame_id = "camera_optical_frame_B";
       image_msg_.encoding = "rgb8";
 
     

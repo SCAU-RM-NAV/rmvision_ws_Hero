@@ -32,7 +32,8 @@ public:
     nRet = MV_CC_EnumDevices(MV_USB_DEVICE, &device_list);
     RCLCPP_INFO(this->get_logger(), "Found camera count = %d", device_list.nDeviceNum);
 
-    while (device_list.nDeviceNum == 0 && rclcpp::ok()) {
+    while (device_list.nDeviceNum == 0 && rclcpp::ok()) 
+    {
       RCLCPP_ERROR(this->get_logger(), "No camera found!");
       RCLCPP_INFO(this->get_logger(), "Enum state: [%x]", nRet);
       std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -57,11 +58,11 @@ public:
     bool use_sensor_data_qos = this->declare_parameter("use_sensor_data_qos", false);
     auto qos = use_sensor_data_qos ? rmw_qos_profile_sensor_data : rmw_qos_profile_default;
     
-    camera_pub_B = image_transport::create_camera_publisher(this, "image_raw_b", qos);\
+    camera_pub_B = image_transport::create_camera_publisher(this, "image_raw_b", qos);
 
     declareParameters();
 
-    MV_CC_StartGrabbing(camera_handle_);
+    MV_CC_StartGrabbing(camera_handle_);//是否需要注释存疑
 
     // Load camera info
     camera_name_ = this->declare_parameter("camera_name", "hik_camera_b");
@@ -85,53 +86,63 @@ public:
 
 
     capture_thread_ = std::thread{[this]() -> void {
-      MV_FRAME_OUT out_frame;
+    MV_FRAME_OUT out_frame;
 
-      RCLCPP_INFO(this->get_logger(), "Publishing cam_B!");
+    RCLCPP_INFO(this->get_logger(), "Publishing cam_B!");
 
-      image_msg_.header.frame_id = "camera_optical_frame_B";
-      image_msg_.encoding = "rgb8";
+    image_msg_.header.frame_id = "camera_optical_frame_B";
+    image_msg_.encoding = "rgb8";
 
     
-      while (rclcpp::ok()) {
-        nRet = MV_CC_GetImageBuffer(camera_handle_, &out_frame, 1000);
-        if (MV_OK == nRet) {
-          convert_param_.pDstBuffer = image_msg_.data.data();
-          convert_param_.nDstBufferSize = image_msg_.data.size();
-          convert_param_.pSrcData = out_frame.pBufAddr;
-          convert_param_.nSrcDataLen = out_frame.stFrameInfo.nFrameLen;
-          convert_param_.enSrcPixelType = out_frame.stFrameInfo.enPixelType;
-
-          MV_CC_ConvertPixelType(camera_handle_, &convert_param_);
-
-          camera_info_msg_.header.stamp = image_msg_.header.stamp = this->now();
-          image_msg_.height = out_frame.stFrameInfo.nHeight;
-          image_msg_.width = out_frame.stFrameInfo.nWidth;
-          image_msg_.step = out_frame.stFrameInfo.nWidth * 3;
-          image_msg_.data.resize(image_msg_.width * image_msg_.height * 3);
-          
-        // for (int i = 0; i < 10; ++i) {
-        //   RCLCPP_INFO(this->get_logger(), "Data %d: 0x%X", i, image_msg_.data[i]);
-        // }
-
-
-          if(aiming_mode == 2)
+      while (rclcpp::ok()) 
+      {
+        if(is_camera_active_)
+        {
+          nRet = MV_CC_GetImageBuffer(camera_handle_, &out_frame, 1000);
+          if (MV_OK == nRet) 
           {
-            camera_pub_B.publish(image_msg_, camera_info_msg_);
-            std::cout<<"相机B在发图象"<<std::endl;
-          }
-          MV_CC_FreeImageBuffer(camera_handle_, &out_frame);
-          fail_conut_ = 0;
-        } else {
-          RCLCPP_WARN(this->get_logger(), "Get buffer failed! nRet: [%x]", nRet);
-          MV_CC_StopGrabbing(camera_handle_);
-          MV_CC_StartGrabbing(camera_handle_);
-          fail_conut_++;
-        }
+            convert_param_.pDstBuffer = image_msg_.data.data();
+            convert_param_.nDstBufferSize = image_msg_.data.size();
+            convert_param_.pSrcData = out_frame.pBufAddr;
+            convert_param_.nSrcDataLen = out_frame.stFrameInfo.nFrameLen;
+            convert_param_.enSrcPixelType = out_frame.stFrameInfo.enPixelType;
 
-        if (fail_conut_ > 15) {
-          RCLCPP_FATAL(this->get_logger(), "Camera failed!");
-          camera_reconnect();
+            MV_CC_ConvertPixelType(camera_handle_, &convert_param_);
+
+            camera_info_msg_.header.stamp = image_msg_.header.stamp = this->now();
+            image_msg_.height = out_frame.stFrameInfo.nHeight;
+            image_msg_.width = out_frame.stFrameInfo.nWidth;
+            image_msg_.step = out_frame.stFrameInfo.nWidth * 3;
+            image_msg_.data.resize(image_msg_.width * image_msg_.height * 3);
+            
+          // for (int i = 0; i < 10; ++i) {
+          //   RCLCPP_INFO(this->get_logger(), "Data %d: 0x%X", i, image_msg_.data[i]);
+          // }
+            if(aiming_mode == 2)
+            {
+              camera_pub_B.publish(image_msg_, camera_info_msg_);
+              std::cout<<"相机B在发图象"<<std::endl;
+            }
+            MV_CC_FreeImageBuffer(camera_handle_, &out_frame);
+            fail_conut_ = 0;
+          }
+          else 
+          {
+            RCLCPP_WARN(this->get_logger(), "Get buffer failed! nRet: [%x]", nRet);
+            MV_CC_StopGrabbing(camera_handle_);
+            MV_CC_StartGrabbing(camera_handle_);
+            fail_conut_++;
+          }
+
+          if (fail_conut_ > 15)
+          {
+            RCLCPP_FATAL(this->get_logger(), "Camera failed!");
+            camera_reconnect();
+          }
+        }
+        else
+        {
+          std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
       }
     }};
@@ -159,6 +170,28 @@ private:
 //   MV_CC_SetEnumValue(camera_handle_, "BalanceWhiteAuto", 1);
 //   // 其他关键参数重置...
 // }
+
+  void startCamera()
+  {
+    if (!is_camera_active_) {
+      MV_CC_StartGrabbing(camera_handle_);
+      is_camera_active_ = true;
+      RCLCPP_INFO(this->get_logger(), "Camera_A started");
+    }
+  }
+
+  void stopCamera()
+  {
+    if (is_camera_active_) {
+      MV_CC_StopGrabbing(camera_handle_);
+      is_camera_active_ = false;
+      RCLCPP_INFO(this->get_logger(), "Camera_A stopped");
+    }
+  }
+
+  bool is_camera_active_ = false;
+  int last_aiming_mode_ = -1; // 用于记录上次的模式
+
 
   void declareParameters()
   {
@@ -287,9 +320,15 @@ private:
     if (msg != nullptr && rclcpp::ok()) 
     {      
       aiming_mode = msg->aiming_mode;
-      if(aiming_mode == 2)
+      // 只有当模式变化时才处理
+      if (msg->aiming_mode != last_aiming_mode_) 
       {
-        int enemy_color = msg->camp == 0 ? 1 : 0;
+        last_aiming_mode_ = msg->aiming_mode;
+        // 根据模式决定是否启用相机
+        if(msg->aiming_mode == 2)
+        {
+          startCamera();
+          int enemy_color = msg->camp == 0 ? 1 : 0;
 
           if(enemy_color == 0)
           {
@@ -313,8 +352,13 @@ private:
               RCLCPP_INFO(this->get_logger(), "set_parameters b: = %d", exp_time_blue);
             }
           }    
-      }
+        }
+        else 
+        {
+          stopCamera();
+        }
           
+    }
     }
     else RCLCPP_INFO(this->get_logger(), "CamGimbalFdb msg empty!!!");
   }
